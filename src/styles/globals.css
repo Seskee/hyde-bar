@@ -10,34 +10,36 @@
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Spriječava "skakanje" layouta kod skrolanja */
+    scrollbar-gutter: stable;
+  }
+  
   body {
     background-color: #070e08;
     color: #e8e2d6;
     font-family: var(--font-jost), sans-serif;
-    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
   }
 
-  /* NOISE EFFECT - Čini stranicu "papirnatom" i skupom */
-  body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.03;
-  z-index: 9999;
-  pointer-events: none;
-  /* Koristimo Inline SVG za brzinu - 0ms učitavanja */
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-}
+  /* Luksuzni kursor (ako želiš, opcionalno) */
+  ::selection {
+    background: #c9a84c;
+    color: #000;
+  }
 }
 
-@keyframes slow-zoom {
-  from { transform: scale(1); }
-  to { transform: scale(1.15); }
+/* Fluidna tipografija - naslovi izgledaju savršeno na svim ekranima */
+@utility text-editorial {
+  font-size: clamp(3rem, 10vw, 8rem);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
 }
 
-.animate-slow-zoom {
-  animation: slow-zoom 20s infinite alternate ease-in-out;
+@layer utilities {
+  .emerald-vignette {
+    background: radial-gradient(circle at center, transparent 0%, rgba(7, 14, 8, 0.8) 100%);
+  }
 }
