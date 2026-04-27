@@ -3,22 +3,28 @@
 @theme {
   --color-gold: #c9a84c;
   --color-gold-light: #e0c06a;
+  /* Emerald Green nijanse sa slika */
+  --color-hyde-emerald: #0a2e1f; 
+  --color-hyde-emerald-light: #15573a;
   --color-hyde-bg: #070e08;
+  
   --font-heading: var(--font-cormorant);
   --font-sans: var(--font-jost);
 }
 
 @layer base {
-  :root {
-    --bg-primary: #070e08;
-    --text-primary: #e8e2d6;
-  }
-  html {
-    scroll-behavior: smooth;
-  }
   body {
     background-color: #070e08;
     color: #e8e2d6;
     font-family: var(--font-jost), sans-serif;
+  }
+}
+
+@layer utilities {
+  .emerald-glow {
+    box-shadow: 0 0 20px rgba(21, 87, 58, 0.3);
+  }
+  .text-glow-gold {
+    text-shadow: 0 0 10px rgba(201, 168, 76, 0.4);
   }
 }
