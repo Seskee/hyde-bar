@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Cormorant_Garamond, Jost } from 'next/font/google'
-import '../styles/globals.css' // Direktna putanja do styles mape
-import { SITE_NAME, SITE_DESCRIPTION } from '@/lib/constants'
+import '../styles/globals.css'
+import { SITE_NAME, SITE_DESCRIPTION, CONTACT } from '@/lib/constants'
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
@@ -12,13 +12,16 @@ const cormorant = Cormorant_Garamond({
 
 const jost = Jost({
   subsets: ['latin'],
-  weight: ['200', '300', '400', '500'],
+  weight: ['200', '300', '400'],
   variable: '--font-jost',
   display: 'swap',
 })
 
 export const metadata: Metadata = {
-  title: SITE_NAME,
+  title: {
+    default: `${SITE_NAME} — Ljubuški`,
+    template: `%s | ${SITE_NAME}`,
+  },
   description: SITE_DESCRIPTION,
 }
 
