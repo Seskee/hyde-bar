@@ -1,10 +1,9 @@
 import Image from 'next/image'
-import Navbar from '@/components/layout/Navbar'
+
 
 export default function MenuPage() {
   return (
-    <main className="flex-grow pt-[140px] md:pt-[180px] pb-32">
-      <Navbar />
+    <section className="flex-grow pb-32">
       
       {/* Hero Section (Asymmetrical Editorial) */}
       <section className="max-w-7xl mx-auto px-6 md:px-12 mb-32 grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
@@ -99,6 +98,6 @@ export default function MenuPage() {
         </section>
 
       </div>
-    </main>
+    </section>
   )
 }
