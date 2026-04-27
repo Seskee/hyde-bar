@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-primary: #070e08;
+    --bg-secondary: #0c1a0e;
+    --bg-card: #111f12;
+    --gold: #c9a84c;
+    --gold-light: #e0c06a;
+    --gold-dim: rgba(201, 168, 76, 0.12);
+    --gold-border: rgba(201, 168, 76, 0.22);
+    --green-deep: #0a120b;
+    --text-primary: #e8e2d6;
+    --text-muted: rgba(232, 226, 214, 0.55);
+    --text-subtle: rgba(232, 226, 214, 0.35);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+  }
+
+  body {
+    font-family: var(--font-jost), system-ui, sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background: var(--gold-dim);
+    color: var(--gold-light);
+  }
+
+  ::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--gold);
+    border-radius: 2px;
+  }
+}
+
+@layer utilities {
+  .font-heading {
+    font-family: var(--font-cormorant), Georgia, serif;
+  }
+
+  .text-gold {
+    color: var(--gold);
+  }
+
+  .text-gold-light {
+    color: var(--gold-light);
+  }
+
+  .text-muted {
+    color: var(--text-muted);
+  }
+
+  .bg-hyde {
+    background-color: var(--bg-primary);
+  }
+
+  .bg-hyde-secondary {
+    background-color: var(--bg-secondary);
+  }
+
+  .border-gold {
+    border-color: var(--gold-border);
+  }
+
+  .gold-rule {
+    width: 48px;
+    height: 1px;
+    background-color: var(--gold);
+  }
+
+  .section-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* GSAP initial state — prevents flash before animation */
+  .gsap-hidden {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+}
