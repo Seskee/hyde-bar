@@ -8,14 +8,21 @@ export default function ClientWrapper({ children }: { children: React.ReactNode 
   const lenisRef = useRef<Lenis | null>(null)
 
   useEffect(() => {
-    lenisRef.current = new Lenis({ duration: 1.2, smoothWheel: true, wheelMultiplier: 1 })
-    
+    // Palimo Lenis SAMO ako korisnik NEMA zaslon osjetljiv na dodir (tj. ako je na PC-u).
+    // Na mobitelima želimo ostaviti savršeni native smooth scroll bez trzanja.
+    const isMobile = window.matchMedia('(pointer: coarse)').matches
+
     let rafId: number
-    function raf(time: number) { 
-      lenisRef.current?.raf(time)
-      rafId = requestAnimationFrame(raf) 
+
+    if (!isMobile) {
+      lenisRef.current = new Lenis({ duration: 1.2, smoothWheel: true, wheelMultiplier: 1 })
+      
+      const raf = (time: number) => { 
+        lenisRef.current?.raf(time)
+        rafId = requestAnimationFrame(raf) 
+      }
+      rafId = requestAnimationFrame(raf)
     }
-    rafId = requestAnimationFrame(raf)
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -31,7 +38,7 @@ export default function ClientWrapper({ children }: { children: React.ReactNode 
     }, 400)
 
     return () => { 
-      cancelAnimationFrame(rafId)
+      if (!isMobile) cancelAnimationFrame(rafId)
       lenisRef.current?.destroy()
       observer.disconnect()
       clearTimeout(timer) 
