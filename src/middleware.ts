@@ -4,50 +4,54 @@ import type { NextRequest } from 'next/server'
 const locales = ['hr', 'en', 'de', 'it']
 const defaultLocale = 'hr'
 
-// 1. FUNKCIJA KOJA ČITA JEZIK IZ KORISNIKOVOG MOBITELA/PREGLEDNIKA
 function getPreferredLocale(request: NextRequest) {
   const acceptLanguage = request.headers.get('accept-language')
   if (!acceptLanguage) return defaultLocale
-
-  const preferredLangs = acceptLanguage
-    .split(',')
-    .map(lang => lang.split(';')[0].trim().substring(0, 2).toLowerCase())
-
+  const preferredLangs = acceptLanguage.split(',').map(lang => lang.split(';')[0].trim().substring(0, 2).toLowerCase())
   for (let lang of preferredLangs) {
-    // SENIOR TRIK: Grupiranje balkanskih jezika na 'hr'
-    if (['bs', 'sr', 'me', 'cnr'].includes(lang)) {
-      lang = 'hr'
-    }
-
-    if (locales.includes(lang)) {
-      return lang
-    }
+    if (['bs', 'sr', 'me', 'cnr'].includes(lang)) lang = 'hr'
+    if (locales.includes(lang)) return lang
   }
-
-  // Svi ostali (Španjolci, Francuzi, itd.) idu na engleski
   return 'en'
 }
 
 export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl
+  // 1. NONCE ZA XSS ZAŠTITU (Sigurnost)
+  const nonce = Buffer.from(crypto.randomUUID()).toString('base64')
   
-  // Provjeri ima li putanja već jezik u sebi
-  const pathnameHasLocale = locales.some(
-    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
-  )
+  const { pathname } = request.nextUrl
+  const pathnameHasLocale = locales.some((locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`)
 
-  if (pathnameHasLocale) return
+  let response = NextResponse.next()
 
-  // 2. OVDJE SE DETEKTIRA KORISNIKOV JEZIK
-  // Ako korisnik upiše samo "localhost:3000" ili "hydebar.ba" bez jezika:
-  const locale = getPreferredLocale(request)
+  // 2. I18N ROUTING
+  if (!pathnameHasLocale && !pathname.match(/\.(.*)$/)) {
+    const locale = getPreferredLocale(request)
+    request.nextUrl.pathname = `/${locale}${pathname === '/' ? '' : pathname}`
+    response = NextResponse.redirect(request.nextUrl)
+  }
 
-  // 3. AUTOMATSKO PREUSMJERAVANJE
-  request.nextUrl.pathname = `/${locale}${pathname === '/' ? '' : pathname}`
-  return NextResponse.redirect(request.nextUrl)
+  // 3. POSTAVLJANJE CSP HEADERA
+  response.headers.set('x-nonce', nonce)
+  const cspHeader = `
+    default-src 'self';
+    script-src 'self' 'nonce-${nonce}' 'strict-dynamic' ${process.env.NODE_ENV === 'development' ? "'unsafe-eval'" : ''};
+    style-src 'self' 'unsafe-inline';
+    img-src 'self' blob: data: https:;
+    font-src 'self' data: https://fonts.gstatic.com;
+    frame-src 'self' https://www.google.com https://googleusercontent.com;
+    connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com;
+    object-src 'none';
+    base-uri 'self';
+    form-action 'self';
+    frame-ancestors 'none';
+    upgrade-insecure-requests;
+  `
+  response.headers.set('Content-Security-Policy', cspHeader.replace(/\s{2,}/g, ' ').trim())
+  
+  return response
 }
 
 export const config = {
-  // Ignoriraj slike i Next.js sistemske datoteke
   matcher: ['/((?!api|_next/static|_next/image|images|favicon.ico).*)'],
 }

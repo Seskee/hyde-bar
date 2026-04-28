@@ -1,9 +1,9 @@
 'use client'
 import { Phone, MapPin, Clock, Utensils } from 'lucide-react'
 import { CONTACT } from '@/lib/constants'
+import type { LocationDict } from '@/types'
 
-// Dodali smo dict prop
-export default function LocationSection({ dict }: { dict: any }) {
+export default function LocationSection({ dict }: { dict: LocationDict }) {
   return (
     <section id="location" className="py-32 px-6 bg-hyde-bg overflow-hidden reveal">
       <div className="max-w-7xl mx-auto">
@@ -26,7 +26,7 @@ export default function LocationSection({ dict }: { dict: any }) {
               </div>
             </div>
 
-            {/* RADNO VRIJEME */}
+            {/* RADNO VRIJEME - FIKSANO PORAVNANJE */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-16 border-t border-white/5 pt-16">
               
               {/* BAR */}
@@ -66,6 +66,7 @@ export default function LocationSection({ dict }: { dict: any }) {
                     <span>{dict.sunday}</span> 
                     <span className="text-white tracking-widest font-medium">12:00 — 23:00</span>
                   </li>
+                  {/* Prazan red da Kitchen visinom odgovara Baru radi simetrije */}
                   <li className="flex justify-between border-b border-transparent pb-3">
                     <span className="opacity-0">.</span>
                     <span className="opacity-0">.</span>
@@ -85,10 +86,11 @@ export default function LocationSection({ dict }: { dict: any }) {
             </div>
           </div>
 
-          {/* DESNA STRANA: MAPA (SADA U BOJI) */}
+          {/* DESNA STRANA: MAPA U BOJI + SEO TITLE */}
           <div className="h-125 md:h-187.5 w-full relative border border-white/5 overflow-hidden group shadow-2xl bg-hyde-bg">
             <iframe 
               src={CONTACT.googleMaps}
+              title="HYDE bar & dine lokacija - Google Maps"
               width="100%" 
               height="100%" 
               style={{ border: 0 }} 

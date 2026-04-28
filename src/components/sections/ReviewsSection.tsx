@@ -1,51 +1,40 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Star, StarHalf, ChevronLeft, ChevronRight } from 'lucide-react'
 import { CONTACT } from '@/lib/constants'
+import type { ReviewsDict } from '@/types'
 
-export default function ReviewsSection({ dict }: { dict: any }) {
+export default function ReviewsSection({ dict }: { dict: ReviewsDict }) {
   const reviews = [
-    {
-      text: dict.review1,
-      author: "Marko M.",
-    },
-    {
-      text: dict.review2,
-      author: "Ana S.",
-    },
-    {
-      text: dict.review3,
-      author: "Ivan K.",
-    }
+    { text: dict.review1, author: "Marko M." },
+    { text: dict.review2, author: "Ana S." },
+    { text: dict.review3, author: "Ivan K." }
   ]
 
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isAnimating, setIsAnimating] = useState(false)
+  const [mounted, setMounted] = useState(false) // Skeleton rješenje
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      handleNext()
-    }, 6000)
-    return () => clearInterval(timer)
-  }, [currentIndex])
+  useEffect(() => { setMounted(true) }, [])
 
-  const handleNext = () => {
-    if (isAnimating) return
-    setIsAnimating(true)
-    setTimeout(() => {
-      setCurrentIndex((prev) => (prev + 1) % reviews.length)
-      setIsAnimating(false)
-    }, 500)
-  }
+  const handleNext = useCallback(() => {
+    setIsAnimating(prev => {
+      if (prev) return prev
+      setTimeout(() => { setCurrentIndex(i => (i + 1) % reviews.length); setIsAnimating(false) }, 500)
+      return true
+    })
+  }, [reviews.length])
 
   const handlePrev = () => {
     if (isAnimating) return
     setIsAnimating(true)
-    setTimeout(() => {
-      setCurrentIndex((prev) => (prev - 1 + reviews.length) % reviews.length)
-      setIsAnimating(false)
-    }, 500)
+    setTimeout(() => { setCurrentIndex(i => (i - 1 + reviews.length) % reviews.length); setIsAnimating(false) }, 500)
   }
+
+  useEffect(() => {
+    const timer = setInterval(handleNext, 6000)
+    return () => clearInterval(timer)
+  }, [handleNext])
 
   return (
     <section className="py-32 bg-hyde-bg overflow-hidden reveal">
@@ -68,34 +57,28 @@ export default function ReviewsSection({ dict }: { dict: any }) {
           </span>
         </div>
 
-        {/* SLIDER RECENZIJA */}
+        {/* SLIDER RECENZIJA SA SKELETONOM */}
         <div className="relative min-h-50 flex items-center justify-center">
+          <button onClick={handlePrev} className="absolute left-0 md:-left-12 text-white/20 hover:text-gold transition-colors p-2 z-10"><ChevronLeft size={32} strokeWidth={1} /></button>
           
-          <button 
-            onClick={handlePrev}
-            className="absolute left-0 md:-left-12 text-white/20 hover:text-gold transition-colors p-2 z-10"
-          >
-            <ChevronLeft size={32} strokeWidth={1} />
-          </button>
-
           <div className={`transition-all duration-500 max-w-2xl px-12 ${isAnimating ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}>
-            <p className="font-heading text-2xl md:text-4xl text-white/90 leading-[1.6] italic font-light tracking-wide mb-8">
-              "{reviews[currentIndex].text}"
-            </p>
-            <p className="font-sans text-[11px] text-gold uppercase tracking-[0.3em]">
-              — {reviews[currentIndex].author}
-            </p>
+            {!mounted ? (
+              <div className="animate-pulse space-y-4">
+                 <div className="h-4 bg-white/10 rounded w-3/4 mx-auto"></div>
+                 <div className="h-4 bg-white/10 rounded w-1/2 mx-auto"></div>
+              </div>
+            ) : (
+              <>
+                <p className="font-heading text-2xl md:text-4xl text-white/90 leading-[1.6] italic font-light tracking-wide mb-8">"{reviews[currentIndex].text}"</p>
+                <p className="font-sans text-[11px] text-gold uppercase tracking-[0.3em]">— {reviews[currentIndex].author}</p>
+              </>
+            )}
           </div>
-
-          <button 
-            onClick={handleNext}
-            className="absolute right-0 md:-right-12 text-white/20 hover:text-gold transition-colors p-2 z-10"
-          >
-            <ChevronRight size={32} strokeWidth={1} />
-          </button>
+          
+          <button onClick={handleNext} className="absolute right-0 md:-right-12 text-white/20 hover:text-gold transition-colors p-2 z-10"><ChevronRight size={32} strokeWidth={1} /></button>
         </div>
 
-        {/* CTA GUMB - SADA OPTIMIZIRAN ZA MOBITEL */}
+        {/* CTA GUMB */}
         <div className="mt-24">
           <a 
             href={CONTACT.googleReviewsUrl} 

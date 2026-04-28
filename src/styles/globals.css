@@ -7,6 +7,9 @@
   --color-hyde-bg: #070e08;
   --font-heading: var(--font-cormorant);
   --font-sans: var(--font-jost);
+  --z-navbar: 110;
+  --z-overlay: 105;
+  --z-toggle: 120;
 }
 
 @layer base {
@@ -14,7 +17,7 @@
   .lenis.lenis-smooth { scroll-behavior: auto !important; }
 
   body {
-    background-color: #070e08;
+    background-color: var(--color-hyde-bg);
     color: #e8e2d6;
     font-family: var(--font-jost), sans-serif;
     overflow-x: hidden;
@@ -23,7 +26,6 @@
       radial-gradient(circle at 100% 100%, rgba(201, 168, 76, 0.05) 0%, transparent 50%);
   }
 
-  /* REVEAL LOGIKA */
   .reveal {
     opacity: 0;
     transform: translateY(30px);
@@ -33,35 +35,17 @@
 }
 
 @layer utilities {
-  /* LUKSUZNI UNDERLINE EFEKT */
-  .link-underline {
-    position: relative;
-    display: inline-block;
-  }
-
+  .link-underline { position: relative; display: inline-block; }
   .link-underline::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 1px;
-    bottom: -4px;
-    left: 0;
-    background-color: #c9a84c;
-    transition: width 0.6s cubic-bezier(0.2, 1, 0.3, 1);
+    content: ''; position: absolute; width: 0; height: 1px; bottom: -4px; left: 0;
+    background-color: var(--color-gold); transition: width 0.6s cubic-bezier(0.2, 1, 0.3, 1);
   }
+  .link-underline:hover::after { width: 100%; }
 
-  .link-underline:hover::after {
-    width: 100%;
-  }
-
-  /* Ostali efekti */
   .text-glint {
-    background: linear-gradient(90deg, #c9a84c 0%, #fff 50%, #c9a84c 100%);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: glint 6s linear infinite;
+    background: linear-gradient(90deg, var(--color-gold) 0%, #fff 50%, var(--color-gold) 100%);
+    background-size: 200% auto; -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; animation: glint 6s linear infinite;
   }
   .mix-blend-screen { mix-blend-mode: screen; }
 }
@@ -72,8 +56,8 @@
 }
 
 @keyframes slow-zoom {
-  from { transform: scale(1.05); }
-  to { transform: scale(1.15); }
+  from { transform: scale(1.0); }
+  to { transform: scale(1.12); }
 }
 .animate-slow-zoom { animation: slow-zoom 20s infinite alternate ease-in-out; }
 

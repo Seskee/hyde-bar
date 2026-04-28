@@ -10,7 +10,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: 'monthly' as const,
     priority: 1,
     alternates: {
-      languages: Object.fromEntries(locales.map(l => [l, `${SITE_URL}/${l}`])),
+      languages: {
+        ...Object.fromEntries(locales.map(l => [l, `${SITE_URL}/${l}`])),
+        'x-default': `${SITE_URL}/hr`,
+      }
     },
   }))
 
@@ -20,7 +23,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: 'monthly' as const,
     priority: 0.8,
     alternates: {
-      languages: Object.fromEntries(locales.map(l => [l, `${SITE_URL}/${l}/menu`])),
+      languages: {
+        ...Object.fromEntries(locales.map(l => [l, `${SITE_URL}/${l}/menu`])),
+        'x-default': `${SITE_URL}/hr/menu`,
+      }
     },
   }))
 

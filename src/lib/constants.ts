@@ -1,6 +1,8 @@
 export const SITE_NAME = 'HYDE bar & dine'
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://hydebar.ba'
 export const SITE_DESCRIPTION = 'Premium cocktail bar & fine dining experience in the heart of Ljubuški. Where botanical noir meets culinary excellence.'
+export const GOOGLE_REVIEW_COUNT = 150
+export const GOOGLE_RATING = 4.6
 
 export const CONTACT = {
   address: 'Zvonimirova, Ljubuški 88320',
