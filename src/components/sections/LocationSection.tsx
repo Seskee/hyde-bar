@@ -18,7 +18,7 @@ export default function LocationSection() {
                 Ljubuški
               </h2>
               <div className="flex items-start gap-4 text-white/40 group cursor-pointer hover:text-white transition-colors duration-500">
-                <MapPin className="w-5 h-5 text-gold flex-shrink-0 mt-1" />
+                <MapPin className="w-5 h-5 text-gold shrink-0 mt-1" />
                 <p className="text-[11px] uppercase tracking-[0.25em] leading-relaxed font-light">
                   {CONTACT.address}
                 </p>
@@ -86,7 +86,7 @@ export default function LocationSection() {
           </div>
 
           {/* DESNA STRANA: MAPA */}
-          <div className="h-[500px] md:h-[750px] w-full relative border border-white/5 overflow-hidden group shadow-2xl">
+          <div className="h-125 md:h-187.5 w-full relative border border-white/5 overflow-hidden group shadow-2xl">
             <iframe 
               src={CONTACT.googleMaps}
               width="100%" height="100%" style={{ border: 0 }} 
@@ -94,7 +94,7 @@ export default function LocationSection() {
               className="grayscale brightness-[0.5] contrast-[1.1] group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-[2s] ease-in-out"
             ></iframe>
             {/* Suptilni overlay preko mape */}
-            <div className="absolute inset-0 pointer-events-none border-[1px] border-white/5 shadow-[inset_0_0_100px_rgba(0,0,0,0.4)]"></div>
+            <div className="absolute inset-0 pointer-events-none border border-white/5 shadow-[inset_0_0_100px_rgba(0,0,0,0.4)]"></div>
           </div>
 
         </div>

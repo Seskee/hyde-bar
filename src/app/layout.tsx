@@ -71,7 +71,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <html lang="hr" className={`${cormorant.variable} ${jost.variable} scroll-smooth`}>
-      <body className="bg-[#070e08] text-[#e8e2d6] antialiased">
+      <body className="bg-[bg-hyde-bg] text-[#e8e2d6] antialiased">
         
         {/* INJEKTIRANJE SCHEMA MARKUPA ZA GOOGLE */}
         <script

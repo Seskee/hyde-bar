@@ -7,7 +7,7 @@ import { CONTACT } from '@/lib/constants'
 
 export default function Footer() {
   return (
-    <footer className="bg-[#070e08] border-t border-white/5 pt-20 pb-10">
+    <footer className="bg-[bg-hyde-bg] border-t border-white/5 pt-20 pb-10">
       <div className="max-w-7xl mx-auto px-6">
         
         {/* GLAVNI RED: 3 STUPCA */}
@@ -23,7 +23,7 @@ export default function Footer() {
           </div>
 
           {/* 2. CENTAR: LOGO, SOCIALS & REVIEWS */}
-          <div className="flex flex-col items-center justify-center gap-8 order-first md:order-none">
+          <div className="flex flex-col items-center justify-center gap-8 order-first md:order-0">
             <Link href="/" className="relative w-28 h-10 opacity-80 hover:opacity-100 transition-opacity">
               <Image src="/images/logo.webp" alt="HYDE Logo" fill className="object-contain mix-blend-screen" />
             </Link>
@@ -46,7 +46,7 @@ export default function Footer() {
               href={CONTACT.googleReviewsUrl} // <- Pobrini se da ovo postoji u constants.ts
               target="_blank" 
               rel="noopener noreferrer"
-              className="flex items-center gap-3 group mt-[-10px] cursor-pointer"
+              className="flex items-center gap-3 group -mt-2.5 cursor-pointer"
             >
               <div className="flex text-gold/50 group-hover:text-gold transition-colors duration-500">
                 <Star size={10} fill="currentColor" />

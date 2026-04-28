@@ -49,7 +49,7 @@ export default function ReviewsSection() {
   }
 
   return (
-    <section className="py-32 bg-[#070e08] overflow-hidden reveal">
+    <section className="py-32 bg-[bg-hyde-bg] overflow-hidden reveal">
       <div className="max-w-4xl mx-auto px-6 text-center">
         
         {/* GOOGLE RATING HEADER */}
@@ -70,7 +70,7 @@ export default function ReviewsSection() {
         </div>
 
         {/* SLIDER RECENZIJA */}
-        <div className="relative min-h-[200px] flex items-center justify-center">
+        <div className="relative min-h-50 flex items-center justify-center">
           
           {/* Lijeve i desne kontrole */}
           <button 
