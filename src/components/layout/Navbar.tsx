@@ -47,7 +47,7 @@ export default function Navbar({ dict }: { dict: any }) {
 
   return (
     <>
-      <nav className={`fixed top-0 w-full z-[110] transition-all duration-700 ease-in-out border-b 
+      <nav className={`fixed top-0 w-full z-110 transition-all duration-700 ease-in-out border-b 
         ${scrollDirection === 'down' && !isOpen ? '-translate-y-full' : 'translate-y-0'}
         ${isAtTop && !isOpen ? 'bg-transparent border-transparent py-8' : 'bg-hyde-bg/95 backdrop-blur-xl border-white/5 py-4'}
       `}>
@@ -91,14 +91,14 @@ export default function Navbar({ dict }: { dict: any }) {
           </div>
 
           {/* MOBILE TOGGLE */}
-          <button onClick={() => setIsOpen(!isOpen)} className="md:hidden text-gold p-2 relative z-[120]">
+          <button onClick={() => setIsOpen(!isOpen)} className="md:hidden text-gold p-2 relative z-120">
             {isOpen ? <X size={28} strokeWidth={1} /> : <Menu size={28} strokeWidth={1} />}
           </button>
         </div>
       </nav>
 
       {/* MOBILE OVERLAY */}
-      <div className={`fixed inset-0 w-full h-[100dvh] bg-hyde-bg z-[105] flex flex-col items-center justify-center transition-all duration-700 ${isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
+      <div className={`fixed inset-0 w-full h-dvh bg-hyde-bg z-105 flex flex-col items-center justify-center transition-all duration-700 ${isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
         <div className="flex flex-col items-center gap-12 text-center">
           <Link href={`/${currentLocale}/menu`} onClick={(e) => handleNavClick(e, `/${currentLocale}/menu`)} className="text-[18px] uppercase tracking-[0.8em] text-white/80 hover:text-gold transition-all">{dict.menu}</Link>
           <Link href={`/${currentLocale}/#gallery`} onClick={(e) => handleNavClick(e, `/${currentLocale}/#gallery`)} className="text-[18px] uppercase tracking-[0.8em] text-white/80 hover:text-gold transition-all">{dict.gallery}</Link>

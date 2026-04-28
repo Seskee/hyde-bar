@@ -16,7 +16,7 @@ export default function MenuSection({ dict }: { dict: any }) {
         <div className="text-center mb-24">
           <span className="text-gold text-[10px] tracking-[0.5em] uppercase">{dict.badge}</span>
           <h2 className="font-heading text-5xl md:text-6xl text-white mt-4">{dict.title}</h2>
-          <div className="w-20 h-[1px] bg-gold/30 mx-auto mt-8"></div>
+          <div className="w-20 h-px bg-gold/30 mx-auto mt-8"></div>
         </div>
 
         <div className="space-y-16">
@@ -35,7 +35,7 @@ export default function MenuSection({ dict }: { dict: any }) {
           ))}
         </div>
 
-        <div className="mt-32 p-12 border border-gold/10 bg-white/[0.02] text-center">
+        <div className="mt-32 p-12 border border-gold/10 bg-white/2 text-center">
           <p className="font-heading text-xl text-gold italic">
             {dict.quote}
           </p>

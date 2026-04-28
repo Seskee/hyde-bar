@@ -1,72 +1,68 @@
 {
   "navbar": {
-    "menu": "Menu",
-    "gallery": "Gallery",
-    "philosophy": "Philosophy",
-    "contact": "Contact"
+    "menu": "Jelovnik",
+    "gallery": "Galerija",
+    "philosophy": "Filozofija",
+    "contact": "Kontakt"
   },
   "hero": {
-    "subtitle": "Ljubuški • Culinary Excellence"
+    "subtitle": "Ljubuški • Kulinarska Izvrsnost"
   },
   "about": {
-    "badge": "Our Philosophy",
+    "badge": "Naša Filozofija",
     "title1": "botanical",
     "title2": "noir",
     "description": "U HYDE-u vjerujemo da odsustvo svjetla pojačava osjetila. Naš kulinarski pristup fokusira se na teksturu, aromu i čistoću sezonskih sastojaka.",
-    "privateSelection": "Private Selection"
+    "privateSelection": "Privatna Selekcija"
   },
   "gallery": {
-    "badge": "Atmosphere",
+    "badge": "Atmosfera",
     "title": "Vibe",
-    "img1": "The Sanctuary",
+    "img1": "Svetište",
     "img2": "Fine Dine",
-    "img3": "Mixology",
-    "img4": "Nocturnal Details"
+    "img3": "Miksologija",
+    "img4": "Noćni Detalji"
   },
   "menu": {
-    "badge": "Selection",
-    "title": "Autumn Menu",
-    "quote": "\"Taste is the only sense that requires the soul.\""
+    "badge": "Selekcija",
+    "title": "Jesenski Jelovnik",
+    "quote": "\"Okus je jedino osjetilo koje zahtijeva dušu.\""
   },
   "reviews": {
-    "subtitle": "Google Reviews",
-    "shareBtn": "Share Your Experience",
+    "subtitle": "Google Recenzije",
+    "shareBtn": "Podijelite Svoje Iskustvo",
     "review1": "Savršen spoj ambijenta i gastronomije. Svaki zalogaj je umjetnost, a kokteli su priča za sebe. Najbolje mjesto u Hercegovini.",
     "review2": "Atmosfera koja te prebaci u neki drugi svijet. Usluga na vrhunskom nivou, a dry-aged ribeye je apsolutno savršenstvo.",
     "review3": "Botanical noir koncept u punom sjaju. Od ulaska do deserta, iskustvo koje budi sva čula. Definitivno se vraćamo."
   },
   "location": {
-    "badge": "The Venue",
+    "badge": "Lokacija",
     "title": "Ljubuški",
     "barTitle": "Bar",
-    "kitchenTitle": "Kitchen",
+    "kitchenTitle": "Kuhinja",
     "monFri": "Pon - Pet",
     "saturday": "Subota",
     "sunday": "Nedjelja",
     "monSat": "Pon - Sub",
-    "directLine": "Direct Line"
+    "directLine": "Direktna Linija"
   },
   "footer": {
     "location": "Ljubuški",
-    "inquiry": "Inquiry",
+    "inquiry": "Upiti",
     "ratingText": "4.6 / 5 na Googleu",
-    "established": "Botanical Noir • Established 2024",
-    "privacy": "Privacy",
-    "terms": "Terms",
-    "designed": "Designed for Excellence"
+    "established": "Botanical Noir • Osnovano 2024.",
+    "privacy": "Privatnost",
+    "terms": "Uvjeti",
+    "designed": "Dizajnirano za Izvrsnost"
   },
-
   "menuPage": {
-    "title": "The Menu",
-    "subtitle": "Ljubuški Selection",
-    "starters": "The Starters",
-    "mains": "Main Collection"
+    "title": "Jelovnik",
+    "subtitle": "Ljubuški Selekcija",
+    "starters": "Predjela",
+    "mains": "Glavna Jela"
   },
-
-
   "seo": {
     "title": "HYDE bar & dine | Botanical Noir u Ljubuškom",
     "description": "Iskusite vrhunsku gastronomiju i botanical noir ambijent u srcu Hercegovine. Rezervirajte svoj stol."
   }
 }
-

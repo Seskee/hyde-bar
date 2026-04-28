@@ -29,7 +29,7 @@ export default function GallerySection({ dict }: { dict: any }) {
           {images.map((img, i) => (
             <div 
               key={i} 
-              className={`${img.span} relative h-[400px] md:h-[550px] overflow-hidden group reveal`}
+              className={`${img.span} relative h-100 md:h-137.5 overflow-hidden group reveal`}
               style={{ transitionDelay: `${i * 150}ms` }} // STAGGER EFFECT
             >
               <Image
@@ -38,7 +38,7 @@ export default function GallerySection({ dict }: { dict: any }) {
                 fill
                 className="object-cover transition-transform duration-[3s] cubic-bezier(0.16, 1, 0.3, 1) group-hover:scale-110 grayscale-[0.2] group-hover:grayscale-0"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-700"></div>
+              <div className="absolute inset-0 bg-linear-to-t from-black/90 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-700"></div>
               <div className="absolute bottom-10 left-10 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700">
                 {/* Ovdje se automatski ispisuje prevedeni label za sliku */}
                 <span className="text-gold text-[10px] tracking-[0.5em] uppercase font-light italic">{img.label}</span>
