@@ -35,8 +35,12 @@ export default function GallerySection({ dict }: { dict: GalleryDict }) {
           {images.map((img, i) => (
             <div 
               key={i} 
+              role="button"
+              tabIndex={0}
+              aria-label={`Otvori sliku ${img.label}`}
+              onKeyDown={(e) => e.key === 'Enter' && setIndex(i)}
               onClick={() => setIndex(i)} 
-              className={`${img.span} relative h-100 md:h-137.5 overflow-hidden group reveal cursor-pointer`} 
+              className={`${img.span} relative h-100 md:h-137.5 overflow-hidden group reveal cursor-pointer cursor-view`} 
               style={{ transitionDelay: `${i * 150}ms` }}
             >
               <Image

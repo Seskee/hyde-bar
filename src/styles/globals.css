@@ -71,3 +71,11 @@
   0% { transform: translateY(-100%); }
   100% { transform: translateY(100%); }
 }
+
+
+/* Skriva defaultni kursor samo na uređajima s pravim mišem (Desktop) */
+@media (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
+}

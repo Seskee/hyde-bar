@@ -1,8 +1,9 @@
 'use client'
 import { useState } from 'react'
-import { Phone, MapPin, Clock, Utensils, X, Navigation } from 'lucide-react'
+import { MapPin, Clock, Utensils, X, Navigation } from 'lucide-react'
 import { CONTACT } from '@/lib/constants'
 import type { LocationDict } from '@/types'
+import MagneticWrapper from '@/components/ui/MagneticWrapper'
 
 export default function LocationSection({ dict }: { dict: LocationDict }) {
   const [showMapMenu, setShowMapMenu] = useState(false)
@@ -90,11 +91,8 @@ export default function LocationSection({ dict }: { dict: LocationDict }) {
 
           {/* DESNA KOLONA — mapa */}
           <div className="h-[500px] md:h-[750px] w-full relative border border-white/5 overflow-hidden group shadow-2xl bg-hyde-bg">
-
-            {/* ✅ FIX: pb= format URL, bez pointer-events-none, viša opacity */}
             <iframe
               src={CONTACT.googleMapsEmbed}
-              // ✅ FIX: title atribut za accessibility i SEO
               title="HYDE bar & dine lokacija — Ljubuški"
               width="100%"
               height="100%"
@@ -105,17 +103,18 @@ export default function LocationSection({ dict }: { dict: LocationDict }) {
               className="w-full h-full opacity-70 group-hover:opacity-50 transition-opacity duration-700"
             />
 
-            {/* Overlay gumb za navigaciju — pointer-events-none na iframu, auto ovdje */}
             <div
               className="absolute inset-0 flex items-center justify-center cursor-pointer"
               onClick={() => setShowMapMenu(true)}
             >
-              <div className="bg-hyde-bg/80 border border-gold/30 backdrop-blur-md px-8 py-4 flex items-center gap-3 transform group-hover:scale-105 transition-all duration-500 hover:border-gold/60">
-                <Navigation className="w-4 h-4 text-gold" />
-                <span className="text-gold text-[10px] uppercase tracking-widest">
-                  Navigacija
-                </span>
-              </div>
+              <MagneticWrapper>
+                <div className="bg-hyde-bg/80 border border-gold/30 backdrop-blur-md px-8 py-4 flex items-center gap-3 transform group-hover:scale-105 transition-all duration-500 hover:border-gold/60">
+                  <Navigation className="w-4 h-4 text-gold" />
+                  <span className="text-gold text-[10px] uppercase tracking-widest">
+                    Navigacija
+                  </span>
+                </div>
+              </MagneticWrapper>
             </div>
           </div>
 

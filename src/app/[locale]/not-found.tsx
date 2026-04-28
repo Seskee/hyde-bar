@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import MagneticWrapper from '@/components/ui/MagneticWrapper'
 
 export default function NotFound() {
   return (
@@ -13,15 +14,17 @@ export default function NotFound() {
         <p className="text-white/30 text-[11px] uppercase tracking-[0.4em] mb-16 font-light">
           The page you are looking for does not exist
         </p>
-        <Link 
-          href="/"
-          className="inline-flex items-center gap-4 group border border-gold/30 hover:border-gold/60 px-10 py-5 transition-all duration-500"
-        >
-          <span className="text-[10px] text-gold uppercase tracking-[0.4em] transition-colors">
-            Return Home
-          </span>
-          <div className="w-8 h-px bg-gold/40 group-hover:bg-gold transition-colors"></div>
-        </Link>
+        <MagneticWrapper>
+          <Link 
+            href="/"
+            className="inline-flex items-center gap-4 group border border-gold/30 hover:border-gold/60 px-10 py-5 transition-all duration-500"
+          >
+            <span className="text-[10px] text-gold uppercase tracking-[0.4em] transition-colors">
+              Return Home
+            </span>
+            <div className="w-8 h-px bg-gold/40 group-hover:bg-gold transition-colors"></div>
+          </Link>
+        </MagneticWrapper>
       </div>
     </main>
   )

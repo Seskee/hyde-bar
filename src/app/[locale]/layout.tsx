@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import CustomCursor from '@/components/ui/CustomCursor'
 import { Cormorant_Garamond, Jost } from 'next/font/google'
 import '@/styles/globals.css'
 import { SITE_NAME, SITE_URL, GOOGLE_REVIEW_COUNT, GOOGLE_RATING } from '@/lib/constants'
@@ -53,6 +54,7 @@ export default async function RootLayout({ children, params }: { children: React
           </div>
         </noscript>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+        <CustomCursor />
         <ClientWrapper>{children}</ClientWrapper>
       </body>
     </html>

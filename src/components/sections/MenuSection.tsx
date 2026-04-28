@@ -1,9 +1,7 @@
 'use client'
+import type { MenuDict } from '@/types' // Uvozimo pravi tip!
 
-// Dodali smo 'dict' prop
-export default function MenuSection({ dict }: { dict: any }) {
-  // Niz prebačen unutar komponente. Ako kasnije dodate opise u JSON, 
-  // ovdje ih samo pozovete s npr. desc: dict.maitakeDesc
+export default function MenuSection({ dict }: { dict: MenuDict }) {
   const menuItems = [
     { name: 'Ember-Roasted Maitake', desc: 'Black garlic emulsion, cured egg yolk, wild onion ash', price: '24' },
     { name: 'Hokkaido Scallop Crudo', desc: 'Green apple dashi, finger lime, cold-pressed shiso oil', price: '28' },
@@ -23,22 +21,16 @@ export default function MenuSection({ dict }: { dict: any }) {
           {menuItems.map((item, i) => (
             <div key={i} className="group cursor-default">
               <div className="flex justify-between items-baseline mb-2">
-                <h3 className="font-heading text-2xl md:text-3xl text-white group-hover:text-gold transition-colors duration-500">
-                  {item.name}
-                </h3>
+                <h3 className="font-heading text-2xl md:text-3xl text-white group-hover:text-gold transition-colors duration-500">{item.name}</h3>
                 <span className="font-sans text-gold text-lg">€{item.price}</span>
               </div>
-              <p className="font-sans text-white/40 text-sm md:text-base italic max-w-md border-l border-gold/20 pl-4">
-                {item.desc}
-              </p>
+              <p className="font-sans text-white/40 text-sm md:text-base italic max-w-md border-l border-gold/20 pl-4">{item.desc}</p>
             </div>
           ))}
         </div>
 
         <div className="mt-32 p-12 border border-gold/10 bg-white/2 text-center">
-          <p className="font-heading text-xl text-gold italic">
-            {dict.quote}
-          </p>
+          <p className="font-heading text-xl text-gold italic">{dict.quote}</p>
         </div>
       </div>
     </section>
