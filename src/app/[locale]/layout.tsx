@@ -72,6 +72,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="hr" className={`${cormorant.variable} ${jost.variable} scroll-smooth`}>
       <body className="bg-hyde-bg text-[#e8e2d6] antialiased">
+        <noscript>
+          <div className="fixed top-0 left-0 w-full z-1000 bg-gold text-hyde-bg px-6 py-2 text-center text-[10px] uppercase tracking-widest font-medium">
+            Za potpuno iskustvo Botanical Noir-a, molimo omogućite JavaScript u vašem pregledniku.
+          </div>
+        </noscript>
         
         {/* INJEKTIRANJE SCHEMA MARKUPA ZA GOOGLE */}
         <script
