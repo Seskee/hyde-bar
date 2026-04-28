@@ -2,12 +2,12 @@
 import { useState, useEffect } from 'react'
 import { MapPin, Clock, Utensils, X, Navigation } from 'lucide-react'
 import { CONTACT } from '@/lib/constants'
-import type { LocationDict } from '@/types'
+import type { LocationDict, ActionsDict } from '@/types'
 
-export default function LocationSection({ dict }: { dict: LocationDict }) {
+// FIX: Komponenta sada prima 2 rječnika: "dict" (za samu lokaciju) i "actionsDict" (za navigacijske gumbe)
+export default function LocationSection({ dict, actionsDict }: { dict: LocationDict, actionsDict: ActionsDict }) {
   const [showMapMenu, setShowMapMenu] = useState(false)
 
-  // Zaključavanje skrola
   useEffect(() => {
     if (showMapMenu) {
       document.body.style.overflow = 'hidden'
@@ -98,7 +98,8 @@ export default function LocationSection({ dict }: { dict: LocationDict }) {
                   className="bg-[#08120a]/90 border border-gold/40 backdrop-blur-md px-8 py-4 flex items-center gap-3 transform group-hover:scale-110 transition-all duration-500 hover:border-gold/80 cursor-pointer shadow-xl z-10"
                 >
                   <Navigation className="w-4 h-4 text-gold" />
-                  <span className="text-gold text-[11px] uppercase tracking-widest font-medium">Navigacija</span>
+                  {/* TIPIZIRAN PRIJEVOD ZA GUMB */}
+                  <span className="text-gold text-[11px] uppercase tracking-widest font-medium">{actionsDict.navigate}</span>
                 </button>
               </div>
             </div>
@@ -106,8 +107,7 @@ export default function LocationSection({ dict }: { dict: LocationDict }) {
         </div>
       </section>
 
-      {/* FIX: Modal izbačen IZVAN <section relative> taga! */}
-      {/* Sada je na istoj razini kao i sekcija, osiguravajući da zauzme 100% ekrana. */}
+      {/* Modal za mape koji iskače na cijeli ekran */}
       <div 
         style={{
           position: 'fixed',
@@ -115,7 +115,7 @@ export default function LocationSection({ dict }: { dict: LocationDict }) {
           left: 0,
           width: '100vw',
           height: '100vh',
-          zIndex: 999999, // Ekstremno visok z-index
+          zIndex: 999999,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -126,13 +126,11 @@ export default function LocationSection({ dict }: { dict: LocationDict }) {
           transition: 'all 0.4s ease-out'
         }}
       >
-        {/* Crna pozadina modala */}
         <div 
           style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(7, 14, 8, 0.9)', backdropFilter: 'blur(8px)', cursor: 'pointer' }}
           onClick={() => setShowMapMenu(false)} 
         />
         
-        {/* Izbornik */}
         <div 
           className="relative w-full max-w-sm bg-hyde-bg border border-white/20 p-8 shadow-2xl rounded-sm transition-all duration-400"
           style={{
@@ -148,8 +146,10 @@ export default function LocationSection({ dict }: { dict: LocationDict }) {
           
           <div className="text-center mb-8 mt-2">
             <MapPin className="w-8 h-8 text-gold mx-auto mb-4 opacity-100" />
-            <h3 className="font-heading text-3xl text-white italic">Otvori u aplikaciji</h3>
-            <p className="text-[11px] text-white/60 uppercase tracking-widest mt-3 font-normal">Odaberite željenu mapu</p>
+            {/* TIPIZIRAN PRIJEVOD ZA NASLOV MODALA */}
+            <h3 className="font-heading text-3xl text-white italic">{actionsDict.openInApp}</h3>
+            {/* TIPIZIRAN PRIJEVOD ZA PODNASLOV */}
+            <p className="text-[11px] text-white/60 uppercase tracking-widest mt-3 font-normal">{actionsDict.chooseMap}</p>
           </div>
           
           <div className="space-y-4 relative z-10">

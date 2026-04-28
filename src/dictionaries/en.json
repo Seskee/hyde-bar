@@ -19,5 +19,6 @@
     "menuDescription": "Discover our menu — dry-aged meats, fresh ingredients, and botanical cocktails in the heart of Ljubuški.",
     "keywords": ["restaurant Ljubuški", "fine dining Herzegovina", "HYDE bar", "cocktails", "dry aged meat", "botanical noir"]
   },
-  "noScript": "For the full Botanical Noir experience, please enable JavaScript in your browser."
+  "noScript": "For the full Botanical Noir experience, please enable JavaScript in your browser.",
+  "actions": { "call": "Reserve", "location": "Location", "navigate": "Navigate", "openInApp": "Open in App", "chooseMap": "Choose your map" }
 }

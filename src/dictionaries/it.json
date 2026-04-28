@@ -19,5 +19,6 @@
     "menuDescription": "Scopri il nostro menu — carni frollate, ingredienti freschi e cocktail botanici nel cuore di Ljubuški.",
     "keywords": ["ristorante Ljubuški", "fine dining Erzegovina", "HYDE bar", "cocktail", "carne frollata", "botanical noir"]
   },
-  "noScript": "Per l'esperienza completa di Botanical Noir, abilita JavaScript nel tuo browser."
+  "noScript": "Per l'esperienza completa di Botanical Noir, abilita JavaScript nel tuo browser.",
+  "actions": { "call": "Prenota", "location": "Posizione", "navigate": "Navigazione", "openInApp": "Apri nell'App", "chooseMap": "Scegli la tua mappa" }
 }

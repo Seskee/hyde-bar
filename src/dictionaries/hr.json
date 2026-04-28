@@ -19,5 +19,6 @@
     "menuDescription": "Pogledajte naš jelovnik — dry-aged meso, svježi sastojci i botanički kokteli u srcu Ljubuškog.",
     "keywords": ["restoran Ljubuški", "fine dining Hercegovina", "HYDE bar", "kokteli", "dry aged meso", "botanical noir"]
   },
-  "noScript": "Za potpuno iskustvo Botanical Noir-a, molimo omogućite JavaScript u vašem pregledniku."
+  "noScript": "Za potpuno iskustvo Botanical Noir-a, molimo omogućite JavaScript u vašem pregledniku.",
+  "actions": { "call": "Rezerviraj", "location": "Lokacija", "navigate": "Navigacija", "openInApp": "Otvori u aplikaciji", "chooseMap": "Odaberite željenu mapu" }
 }

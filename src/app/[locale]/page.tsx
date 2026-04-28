@@ -19,8 +19,21 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       canonical: `${SITE_URL}/${locale}`,
       languages: { 'x-default': `${SITE_URL}/hr`, 'hr': `${SITE_URL}/hr`, 'en': `${SITE_URL}/en`, 'de': `${SITE_URL}/de`, 'it': `${SITE_URL}/it` },
     },
-    openGraph: { title: dict.seo.title, description: dict.seo.description, url: `${SITE_URL}/${locale}`, siteName: 'HYDE bar & dine', images: [{ url: `${SITE_URL}/images/interijer1.webp`, width: 1200, height: 630 }], locale: locale, type: 'website' },
-    twitter: { card: 'summary_large_image', title: dict.seo.title, description: dict.seo.description, images: [`${SITE_URL}/images/interijer1.webp`] },
+    openGraph: { 
+      title: dict.seo.title, 
+      description: dict.seo.description, 
+      url: `${SITE_URL}/${locale}`, 
+      siteName: 'HYDE bar & dine', 
+      images: [{ url: `${SITE_URL}/images/og-image.jpg`, width: 1200, height: 630 }], 
+      locale: locale, 
+      type: 'website' 
+    },
+    twitter: { 
+      card: 'summary_large_image', 
+      title: dict.seo.title, 
+      description: dict.seo.description, 
+      images: [`${SITE_URL}/images/og-image.jpg`] 
+    },
   }
 }
 
@@ -35,7 +48,10 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <About dict={dict.about} />
       <GallerySection dict={dict.gallery} />
       <ReviewsSection dict={dict.reviews} />
-      <LocationSection dict={dict.location} />
+      
+      {/* OVDJE SMO DODALI I actionsDict KAKO BI MODAL ZA MAPU MOGAO BITI PREVEDEN */}
+      <LocationSection dict={dict.location} actionsDict={dict.actions} />
+      
       <Footer dict={dict.footer} />
     </main>
   )

@@ -24,7 +24,7 @@ export default async function RootLayout({ children, params }: { children: React
         
         {/* Prvo UI koji mora biti IZNAD svega */}
         <CustomCursor />
-        <MobileActions />
+        <MobileActions dict={dict.actions} />
         <ScrollProgress />
         <Preloader />
 

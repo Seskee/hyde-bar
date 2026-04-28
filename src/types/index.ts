@@ -2,6 +2,7 @@ import hrDict from '@/dictionaries/hr.json'
 
 export type Locale = 'hr' | 'en' | 'de' | 'it'
 export type Dictionary = typeof hrDict
+export type ActionsDict = Dictionary['actions']
 
 // Izvedeni tipovi za komponente kako bismo izbjegli 'any'
 export type NavbarDict = Dictionary['navbar']
