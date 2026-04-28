@@ -7,14 +7,13 @@ export default function MagneticWrapper({ children }: { children: React.ReactNod
   const [position, setPosition] = useState({ x: 0, y: 0 })
 
   const handleMouseMove = (e: React.MouseEvent) => {
+    // Magnetski efekt radi samo na desktopu (uređaji s mišem)
+    if (window.matchMedia('(pointer: coarse)').matches) return
+
     const { clientX, clientY } = e
     const { width, height, left, top } = ref.current!.getBoundingClientRect()
-    
-    // Računamo koliko je miš udaljen od centra gumba
     const x = clientX - (left + width / 2)
     const y = clientY - (top + height / 2)
-    
-    // Gumb prati miš za 35% udaljenosti (suptilno, ne previše agresivno)
     setPosition({ x: x * 0.35, y: y * 0.35 })
   }
 
@@ -22,15 +21,16 @@ export default function MagneticWrapper({ children }: { children: React.ReactNod
     setPosition({ x: 0, y: 0 })
   }
 
-  const { x, y } = position
-
   return (
     <motion.div
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      animate={{ x, y }}
+      // Dok se pritišće (na mobitelu ili desktopu), gumb se malo smanji
+      whileTap={{ scale: 0.95 }}
+      animate={{ x: position.x, y: position.y }}
       transition={{ type: 'spring', stiffness: 150, damping: 15, mass: 0.1 }}
+      className="inline-block" // Osigurava da omot ne "pobjegne" preko cijelog ekrana
     >
       {children}
     </motion.div>
