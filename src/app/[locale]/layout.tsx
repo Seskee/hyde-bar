@@ -5,8 +5,9 @@ import { SITE_NAME, SITE_URL, GOOGLE_REVIEW_COUNT, GOOGLE_RATING } from '@/lib/c
 import { getDictionary } from '@/lib/get-dictionary'
 import ClientWrapper from '@/components/layout/ClientWrapper'
 
-const cormorant = Cormorant_Garamond({ subsets: ['latin'], weight: ['300', '400', '500', '600', '700'], variable: '--font-cormorant', display: 'swap' })
-const jost = Jost({ subsets: ['latin'], weight: ['200', '300', '400', '500'], variable: '--font-jost', display: 'swap' })
+// DODANO: 'latin-ext' za ispravan prikaz hrvatskih znakova
+const cormorant = Cormorant_Garamond({ subsets: ['latin', 'latin-ext'], weight: ['300', '400', '500', '600', '700'], variable: '--font-cormorant', display: 'swap' })
+const jost = Jost({ subsets: ['latin', 'latin-ext'], weight: ['200', '300', '400', '500'], variable: '--font-jost', display: 'swap' })
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
@@ -47,14 +48,11 @@ export default async function RootLayout({ children, params }: { children: React
       <body className="bg-hyde-bg text-[#e8e2d6] antialiased">
         <noscript>
           <div className="fixed top-0 left-0 w-full z-1000 bg-gold text-hyde-bg px-6 py-2 text-center text-[10px] uppercase tracking-widest font-medium">
-            {/* @ts-ignore - dictionary dynamic key */}
+            {/* @ts-ignore */}
             {dict.noScript || "Za potpuno iskustvo, omogućite JavaScript."}
           </div>
         </noscript>
-        
-        {/* ISPRAVAK: Maknut je 'nonce' attribut. Više nema hydration errora! */}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-        
         <ClientWrapper>{children}</ClientWrapper>
       </body>
     </html>

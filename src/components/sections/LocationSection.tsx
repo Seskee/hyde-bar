@@ -1,15 +1,21 @@
 'use client'
-import { Phone, MapPin, Clock, Utensils } from 'lucide-react'
+import { useState } from 'react'
+import { Phone, MapPin, Clock, Utensils, X, Navigation } from 'lucide-react'
 import { CONTACT } from '@/lib/constants'
 import type { LocationDict } from '@/types'
 
 export default function LocationSection({ dict }: { dict: LocationDict }) {
+  const [showMapMenu, setShowMapMenu] = useState(false)
+
+  const encodedAddress = encodeURIComponent(CONTACT.address)
+  const appleMapsLink = `https://maps.apple.com/?q=${encodedAddress}`
+
   return (
-    <section id="location" className="py-32 px-6 bg-hyde-bg overflow-hidden reveal">
+    <section id="location" className="py-32 px-6 bg-hyde-bg overflow-hidden reveal relative">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 lg:gap-32 items-start">
-          
-          {/* LIJEVA STRANA: INFO */}
+
+          {/* LIJEVA KOLONA — info */}
           <div className="space-y-16">
             <div>
               <span className="text-gold text-[10px] tracking-[0.8em] uppercase block mb-6 opacity-50 font-medium">
@@ -18,18 +24,20 @@ export default function LocationSection({ dict }: { dict: LocationDict }) {
               <h2 className="font-heading text-6xl md:text-8xl text-white mb-10 italic lowercase leading-none">
                 {dict.title}
               </h2>
-              <div className="flex items-start gap-4 text-white/40 group cursor-pointer hover:text-white transition-colors duration-500">
+
+              <div
+                onClick={() => setShowMapMenu(true)}
+                className="flex items-start gap-4 text-white/40 group cursor-pointer hover:text-white transition-colors duration-500"
+              >
                 <MapPin className="w-5 h-5 text-gold shrink-0 mt-1" />
-                <p className="text-[11px] uppercase tracking-[0.25em] leading-relaxed font-light">
+                <p className="text-[11px] uppercase tracking-[0.25em] leading-relaxed font-light border-b border-transparent group-hover:border-gold/30 pb-1 transition-all">
                   {CONTACT.address}
                 </p>
               </div>
             </div>
 
-            {/* RADNO VRIJEME - FIKSANO PORAVNANJE */}
+            {/* RADNO VRIJEME */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-16 border-t border-white/5 pt-16">
-              
-              {/* BAR */}
               <div className="space-y-8">
                 <div className="flex items-center gap-3">
                   <Clock className="w-4 h-4 text-gold opacity-50" />
@@ -37,21 +45,20 @@ export default function LocationSection({ dict }: { dict: LocationDict }) {
                 </div>
                 <ul className="text-[10px] uppercase tracking-[0.25em] text-white/30 space-y-5 font-light">
                   <li className="flex justify-between border-b border-white/10 pb-3">
-                    <span>{dict.monFri}</span> 
+                    <span>{dict.monFri}</span>
                     <span className="text-white tracking-widest font-medium">07:00 — 01:00</span>
                   </li>
                   <li className="flex justify-between border-b border-white/10 pb-3">
-                    <span>{dict.saturday}</span> 
+                    <span>{dict.saturday}</span>
                     <span className="text-white tracking-widest font-medium">08:00 — 01:00</span>
                   </li>
                   <li className="flex justify-between border-b border-white/10 pb-3">
-                    <span>{dict.sunday}</span> 
+                    <span>{dict.sunday}</span>
                     <span className="text-white tracking-widest font-medium">12:00 — 00:00</span>
                   </li>
                 </ul>
               </div>
 
-              {/* KITCHEN */}
               <div className="space-y-8">
                 <div className="flex items-center gap-3">
                   <Utensils className="w-4 h-4 text-gold opacity-50" />
@@ -59,23 +66,18 @@ export default function LocationSection({ dict }: { dict: LocationDict }) {
                 </div>
                 <ul className="text-[10px] uppercase tracking-[0.25em] text-white/30 space-y-5 font-light">
                   <li className="flex justify-between border-b border-white/10 pb-3">
-                    <span>{dict.monSat}</span> 
+                    <span>{dict.monSat}</span>
                     <span className="text-white tracking-widest font-medium">15:00 — 23:00</span>
                   </li>
                   <li className="flex justify-between border-b border-white/10 pb-3">
-                    <span>{dict.sunday}</span> 
+                    <span>{dict.sunday}</span>
                     <span className="text-white tracking-widest font-medium">12:00 — 23:00</span>
-                  </li>
-                  {/* Prazan red da Kitchen visinom odgovara Baru radi simetrije */}
-                  <li className="flex justify-between border-b border-transparent pb-3">
-                    <span className="opacity-0">.</span>
-                    <span className="opacity-0">.</span>
                   </li>
                 </ul>
               </div>
             </div>
 
-            {/* KONTAKT BROJ */}
+            {/* TELEFON */}
             <div className="pt-12 border-t border-white/5">
               <a href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} className="group flex flex-col gap-4">
                 <span className="text-gold text-[10px] tracking-[0.5em] uppercase opacity-40">{dict.directLine}</span>
@@ -86,22 +88,92 @@ export default function LocationSection({ dict }: { dict: LocationDict }) {
             </div>
           </div>
 
-          {/* DESNA STRANA: MAPA U BOJI + SEO TITLE */}
-          <div className="h-125 md:h-187.5 w-full relative border border-white/5 overflow-hidden group shadow-2xl bg-hyde-bg">
-            <iframe 
-              src={CONTACT.googleMaps}
-              title="HYDE bar & dine lokacija - Google Maps"
-              width="100%" 
-              height="100%" 
-              style={{ border: 0 }} 
-              allowFullScreen 
-              loading="lazy" 
-              className="w-full h-full opacity-90 hover:opacity-100 transition-opacity duration-700"
-            ></iframe>
-            {/* Suptilni unutarnji sjaj za luksuzniji dojam rubova */}
-            <div className="absolute inset-0 pointer-events-none border border-white/5 shadow-[inset_0_0_40px_rgba(0,0,0,0.3)]"></div>
+          {/* DESNA KOLONA — mapa */}
+          <div className="h-[500px] md:h-[750px] w-full relative border border-white/5 overflow-hidden group shadow-2xl bg-hyde-bg">
+
+            {/* ✅ FIX: pb= format URL, bez pointer-events-none, viša opacity */}
+            <iframe
+              src={CONTACT.googleMapsEmbed}
+              // ✅ FIX: title atribut za accessibility i SEO
+              title="HYDE bar & dine lokacija — Ljubuški"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="w-full h-full opacity-70 group-hover:opacity-50 transition-opacity duration-700"
+            />
+
+            {/* Overlay gumb za navigaciju — pointer-events-none na iframu, auto ovdje */}
+            <div
+              className="absolute inset-0 flex items-center justify-center cursor-pointer"
+              onClick={() => setShowMapMenu(true)}
+            >
+              <div className="bg-hyde-bg/80 border border-gold/30 backdrop-blur-md px-8 py-4 flex items-center gap-3 transform group-hover:scale-105 transition-all duration-500 hover:border-gold/60">
+                <Navigation className="w-4 h-4 text-gold" />
+                <span className="text-gold text-[10px] uppercase tracking-widest">
+                  Navigacija
+                </span>
+              </div>
+            </div>
           </div>
 
+        </div>
+      </div>
+
+      {/* MODAL — odabir mape */}
+      <div
+        className={`fixed inset-0 z-[200] flex items-center justify-center p-6 transition-all duration-500 ${
+          showMapMenu ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
+        }`}
+      >
+        <div
+          className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+          onClick={() => setShowMapMenu(false)}
+        />
+
+        <div
+          className={`relative w-full max-w-sm bg-hyde-bg border border-white/10 p-8 shadow-2xl transform transition-all duration-500 ${
+            showMapMenu ? 'scale-100 translate-y-0' : 'scale-95 translate-y-8'
+          }`}
+        >
+          <button
+            onClick={() => setShowMapMenu(false)}
+            className="absolute top-4 right-4 text-white/40 hover:text-gold transition-colors"
+            aria-label="Zatvori"
+          >
+            <X size={20} strokeWidth={1} />
+          </button>
+
+          <div className="text-center mb-8 mt-2">
+            <MapPin className="w-8 h-8 text-gold mx-auto mb-4 opacity-80" />
+            <h3 className="font-heading text-3xl text-white italic">
+              Otvori u aplikaciji
+            </h3>
+            <p className="text-[10px] text-white/40 uppercase tracking-widest mt-3">
+              Odaberite željenu mapu
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            <a
+              href={CONTACT.googleMapsPin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full text-center border border-white/10 hover:border-gold hover:bg-gold/5 py-4 transition-all duration-300"
+            >
+              <span className="text-[11px] text-white uppercase tracking-[0.3em]">Google Maps</span>
+            </a>
+            <a
+              href={appleMapsLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full text-center border border-white/10 hover:border-gold hover:bg-gold/5 py-4 transition-all duration-300"
+            >
+              <span className="text-[11px] text-white uppercase tracking-[0.3em]">Apple Maps</span>
+            </a>
+          </div>
         </div>
       </div>
     </section>

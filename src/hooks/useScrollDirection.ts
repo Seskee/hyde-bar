@@ -1,23 +1,31 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 export function useScrollDirection() {
   const [scrollDirection, setScrollDirection] = useState<'up' | 'down' | null>(null)
+  
+  // useRef pamti vrijednost u pozadini bez okidanja re-rendera komponenti!
+  const lastScrollY = useRef(0)
 
   useEffect(() => {
-    let lastScrollY = window.pageYOffset
+    lastScrollY.current = window.scrollY
+
     const updateScrollDirection = () => {
-      const scrollY = window.pageYOffset
-      const direction = scrollY > lastScrollY ? 'down' : 'up'
-      if (direction !== scrollDirection && (scrollY - lastScrollY > 10 || scrollY - lastScrollY < -10)) {
-        setScrollDirection(direction)
+      const scrollY = window.scrollY
+      const diff = scrollY - lastScrollY.current
+
+      // Mijenjamo smjer samo ako je pomak veći od 10px (sprječava trzanje - jitter)
+      if (Math.abs(diff) > 10) {
+        setScrollDirection(diff > 0 ? 'down' : 'up')
+        lastScrollY.current = scrollY > 0 ? scrollY : 0
       }
-      lastScrollY = scrollY > 0 ? scrollY : 0
     }
-    // ← ISPRAVKA: dodan { passive: true } za bolji scroll performance na mobilnim
+
+    // passive: true je tu za maksimalne performanse na mobitelima
     window.addEventListener('scroll', updateScrollDirection, { passive: true })
+    
     return () => window.removeEventListener('scroll', updateScrollDirection)
-  }, [scrollDirection])
+  }, []) // ← PRAZAN NIZ! Zlatno pravilo: listener se dodaje i briše samo JEDNOM.
 
   return scrollDirection
 }
