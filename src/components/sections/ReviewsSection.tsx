@@ -38,11 +38,15 @@ export default function ReviewsSection({ dict }: { dict: ReviewsDict }) {
   }, [handleNext])
 
   return (
-    <section className="py-32 bg-hyde-bg overflow-hidden reveal">
-      <div className="max-w-4xl mx-auto px-6 text-center">
+    <section className="relative py-32 bg-hyde-bg overflow-hidden reveal">
+      
+      {/* Suptilni spotlight iza teksta da se istakne od ostatka zelene pozadine */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60%] md:w-[40%] h-[60%] bg-[#125e36] opacity-15 blur-[120px] rounded-full pointer-events-none"></div>
+
+      <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
         
         <div className="mb-20 flex flex-col items-center justify-center">
-          <div className="flex gap-1 mb-6 text-gold">
+          <div className="flex gap-1 mb-6 text-gold drop-shadow-md">
             <Star fill="currentColor" size={20} strokeWidth={1} />
             <Star fill="currentColor" size={20} strokeWidth={1} />
             <Star fill="currentColor" size={20} strokeWidth={1} />
@@ -50,9 +54,9 @@ export default function ReviewsSection({ dict }: { dict: ReviewsDict }) {
             <StarHalf fill="currentColor" size={20} strokeWidth={1} />
           </div>
           <h2 className="font-heading text-6xl md:text-7xl text-white italic lowercase leading-none">
-            4.6<span className="text-3xl text-white/30">/5</span>
+            4.6<span className="text-3xl text-white/40">/5</span>
           </h2>
-          <span className="text-gold text-[10px] tracking-[0.6em] uppercase mt-6 opacity-70">
+          <span className="text-gold text-[11px] tracking-[0.6em] uppercase mt-6 opacity-90 font-medium">
             {dict.subtitle}
           </span>
         </div>
@@ -60,7 +64,7 @@ export default function ReviewsSection({ dict }: { dict: ReviewsDict }) {
         <div className="relative min-h-50 flex items-center justify-center">
           <div className="absolute left-0 md:-left-12 z-10">
             <MagneticWrapper>
-              <button aria-label="Prethodna recenzija" onClick={handlePrev} className="text-white/20 hover:text-gold transition-colors p-4">
+              <button aria-label="Prethodna recenzija" onClick={handlePrev} className="text-white/50 hover:text-gold transition-colors p-4">
                 <ChevronLeft size={32} strokeWidth={1} />
               </button>
             </MagneticWrapper>
@@ -74,15 +78,15 @@ export default function ReviewsSection({ dict }: { dict: ReviewsDict }) {
               </div>
             ) : (
               <>
-                <p className="font-heading text-2xl md:text-4xl text-white/90 leading-[1.6] italic font-light tracking-wide mb-8">"{reviews[currentIndex].text}"</p>
-                <p className="font-sans text-[11px] text-gold uppercase tracking-[0.3em]">— {reviews[currentIndex].author}</p>
+                <p className="font-heading text-2xl md:text-4xl text-white/95 leading-[1.6] italic font-normal tracking-wide mb-8">"{reviews[currentIndex].text}"</p>
+                <p className="font-sans text-[12px] text-gold uppercase tracking-[0.3em] font-medium">— {reviews[currentIndex].author}</p>
               </>
             )}
           </div>
           
           <div className="absolute right-0 md:-right-12 z-10">
             <MagneticWrapper>
-              <button aria-label="Sljedeća recenzija" onClick={handleNext} className="text-white/20 hover:text-gold transition-colors p-4">
+              <button aria-label="Sljedeća recenzija" onClick={handleNext} className="text-white/50 hover:text-gold transition-colors p-4">
                 <ChevronRight size={32} strokeWidth={1} />
               </button>
             </MagneticWrapper>
@@ -95,12 +99,12 @@ export default function ReviewsSection({ dict }: { dict: ReviewsDict }) {
               href={CONTACT.googleReviewsUrl} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-4 group border border-gold/30 md:border-white/10 hover:border-gold/50 px-10 py-5 transition-all duration-500"
+              className="inline-flex items-center gap-4 group border border-gold/40 hover:border-gold/80 px-10 py-5 transition-all duration-500 bg-white/5 backdrop-blur-md"
             >
-              <span className="text-[10px] text-gold md:text-white/60 group-hover:text-gold uppercase tracking-[0.4em] transition-colors">
+              <span className="text-[11px] text-white/90 group-hover:text-gold uppercase tracking-[0.4em] transition-colors font-medium">
                 {dict.shareBtn}
               </span>
-              <div className="w-8 h-px bg-gold/40 md:bg-white/20 group-hover:bg-gold transition-colors"></div>
+              <div className="w-8 h-px bg-gold/40 group-hover:bg-gold transition-colors"></div>
             </a>
           </MagneticWrapper>
         </div>
