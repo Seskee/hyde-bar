@@ -4,27 +4,77 @@ import { Phone, MapPin } from 'lucide-react'
 import { CONTACT } from '@/lib/constants'
 
 export function MobileActions() {
-  const [mounted, setMounted] = useState(false)
-  const [show, setShow] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
+  const [isMobileScreen, setIsMobileScreen] = useState(false)
 
   useEffect(() => {
-    setMounted(true)
-    const onScroll = () => setShow(window.scrollY > 80)
-    window.addEventListener('scroll', onScroll)
-    return () => window.removeEventListener('scroll', onScroll)
+    // Detekcija mobitela (radi i u Firefox RDM)
+    const handleResize = () => setIsMobileScreen(window.innerWidth < 768)
+    handleResize() 
+    window.addEventListener('resize', handleResize)
+
+    let rafId: number
+    
+    const checkScroll = () => {
+      // FIREFOX FIX: Firefox nekad ignorira window.scrollY u emulatoru, 
+      // pa mu dajemo document.documentElement.scrollTop kao alternativu
+      const scrollY = window.scrollY || document.documentElement.scrollTop || 0
+      const docHeight = document.documentElement.scrollHeight
+      const winHeight = window.innerHeight
+      
+      const maxScroll = docHeight - winHeight
+      
+      // FIREFOX FIX #2: Zbog decimalnog računanja piksela u Firefoxu, 
+      // marginu za dno smo povećali na 200px da sigurno nestane pred footerom
+      if (scrollY > 100 && scrollY < (maxScroll - 200)) {
+        setIsVisible(true)
+      } else {
+        setIsVisible(false)
+      }
+      
+      rafId = requestAnimationFrame(checkScroll)
+    }
+    
+    rafId = requestAnimationFrame(checkScroll)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+      cancelAnimationFrame(rafId)
+    }
   }, [])
 
-  if (!mounted || !show) return null
+  if (!isMobileScreen) return null
 
   return (
-    <div className="fixed bottom-6 left-0 w-full flex md:hidden justify-center px-6" style={{ zIndex: 10000000 }}>
-      <div className="bg-[#0f0f0f] border border-white/20 rounded-full flex w-full max-w-[360px] shadow-2xl">
-        <a href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} className="flex-1 flex items-center justify-center gap-3 py-4 text-[#d4af37] border-r border-white/10 text-[10px] font-bold uppercase tracking-widest active:bg-white/5 rounded-l-full">
-          <Phone size={14} /> Poziv
+    <div 
+      className="fixed left-0 w-full flex justify-center px-4 z-[9999999]"
+      style={{ 
+        bottom: 'max(30px, env(safe-area-inset-bottom))',
+        transform: isVisible ? 'translateY(0)' : 'translateY(150px)',
+        opacity: isVisible ? 1 : 0,
+        pointerEvents: isVisible ? 'auto' : 'none',
+        // Malo brža tranzicija da izgleda fluidnije
+        transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)' 
+      }}
+    >
+      <div className="bg-[#0f0f0f]/90 backdrop-blur-xl border border-[#c9a84c]/50 rounded-full flex w-full max-w-[340px] shadow-[0_10px_40px_rgba(0,0,0,0.9)] overflow-hidden">
+        
+        <a 
+          href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} 
+          className="flex-1 flex items-center justify-center gap-2 py-4 text-[#d4af37] border-r border-[#c9a84c]/30 text-[12px] font-bold uppercase tracking-widest active:bg-white/10 transition-colors"
+        >
+          <Phone size={16} /> Poziv
         </a>
-        <a href={CONTACT.googleMapsPin} target="_blank" rel="noopener noreferrer" className="flex-1 flex items-center justify-center gap-3 py-4 text-white text-[10px] font-bold uppercase tracking-widest active:bg-white/5 rounded-r-full">
-          <MapPin size={14} className="text-[#d4af37]" /> Lokacija
+        
+        <a 
+          href={CONTACT.googleMapsPin} 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="flex-1 flex items-center justify-center gap-2 py-4 text-white text-[12px] font-bold uppercase tracking-widest active:bg-white/10 transition-colors"
+        >
+          <MapPin size={16} className="text-[#d4af37]" /> Lokacija
         </a>
+        
       </div>
     </div>
   )

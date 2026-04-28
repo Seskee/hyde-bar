@@ -11,7 +11,7 @@ export default function Footer({ dict }: { dict: FooterDict }) {
   const currentLocale = pathname.split('/')[1] || 'hr'
 
   return (
-    <footer className="bg-hyde-bg border-t border-white/5 pt-20 pb-10">
+    <footer id="footer-section" className="bg-hyde-bg border-t border-white/5 pt-20 pb-10 relative z-[10]">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 items-start mb-16 text-center md:text-left">
           <div className="flex flex-col items-center md:items-start gap-4">
@@ -22,7 +22,7 @@ export default function Footer({ dict }: { dict: FooterDict }) {
           </div>
           <div className="flex flex-col items-center justify-center gap-8 order-first md:order-0">
             <Link href="/" className="relative w-28 h-10 opacity-80 hover:opacity-100 transition-opacity">
-              <Image src="/images/logo.webp" alt="HYDE Logo" fill sizes="112px" className="object-contain mix-blend-screen" />
+              <Image src="/images/logo.webp" alt="HYDE Logo" fill sizes="(max-width: 768px) 112px, 112px" className="object-contain mix-blend-screen" loading="eager" fetchPriority="high" priority />
             </Link>
             <div className="flex items-center gap-8">
               <Link href="https://www.instagram.com/hyde_bar_dine/" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-gold transition-all duration-500 transform hover:scale-110"><Instagram size={18} strokeWidth={1.5} /></Link>
