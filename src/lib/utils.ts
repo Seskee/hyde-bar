@@ -1,13 +1,9 @@
-type ClassValue = string | undefined | null | false | ClassValue[]
+type ClassValue = string | number | boolean | undefined | null;
+type ClassArray = ClassValue[];
 
-function clsx(...inputs: ClassValue[]): string {
+export function cn(...inputs: (ClassValue | ClassArray)[]): string {
   return inputs
-    .flat(Infinity)
+    .flat()
     .filter(Boolean)
     .join(' ')
-}
-
-// Lightweight cn without clsx/tailwind-merge dependency
-export function cn(...inputs: ClassValue[]): string {
-  return clsx(...inputs)
 }

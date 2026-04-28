@@ -1,7 +1,8 @@
 'use client'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Instagram, Facebook, Mail, MapPin } from 'lucide-react'
+// DODANO: Star i StarHalf
+import { Instagram, Facebook, Mail, MapPin, Star, StarHalf } from 'lucide-react' 
 import { CONTACT } from '@/lib/constants'
 
 export default function Footer() {
@@ -21,12 +22,13 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* 2. CENTAR: LOGO & SOCIALS */}
+          {/* 2. CENTAR: LOGO, SOCIALS & REVIEWS */}
           <div className="flex flex-col items-center justify-center gap-8 order-first md:order-none">
             <Link href="/" className="relative w-28 h-10 opacity-80 hover:opacity-100 transition-opacity">
               <Image src="/images/logo.webp" alt="HYDE Logo" fill className="object-contain mix-blend-screen" />
             </Link>
             
+            {/* Društvene mreže */}
             <div className="flex items-center gap-8">
               <Link href="https://instagram.com" target="_blank" className="text-white/30 hover:text-gold transition-all duration-500 transform hover:scale-110">
                 <Instagram size={18} strokeWidth={1.5} />
@@ -38,6 +40,25 @@ export default function Footer() {
                 <Mail size={18} strokeWidth={1.5} />
               </Link>
             </div>
+
+            {/* DODANO: Google Reviews ocjena */}
+            <a 
+              href={CONTACT.googleReviewsUrl} // <- Pobrini se da ovo postoji u constants.ts
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 group mt-[-10px] cursor-pointer"
+            >
+              <div className="flex text-gold/50 group-hover:text-gold transition-colors duration-500">
+                <Star size={10} fill="currentColor" />
+                <Star size={10} fill="currentColor" />
+                <Star size={10} fill="currentColor" />
+                <Star size={10} fill="currentColor" />
+                <StarHalf size={10} fill="currentColor" />
+              </div>
+              <span className="text-white/30 text-[9px] uppercase tracking-[0.3em] font-light group-hover:text-white transition-colors duration-500">
+                4.6 / 5 na Googleu
+              </span>
+            </a>
           </div>
 
           {/* 3. KONTAKT */}
