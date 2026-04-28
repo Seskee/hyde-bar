@@ -18,16 +18,16 @@ export default function About({ dict }: { dict: AboutDict }) {
             <div className="mt-8 text-center lg:text-left">
               <p className="font-heading text-2xl md:text-4xl text-white/80 leading-[1.6] italic font-light tracking-wide max-w-xl mx-auto lg:mx-0">
                 {parts[0]}
-                {/* @ts-ignore */}
+                {/* OBRISAN @ts-ignore - TypeScript sada ovo savršeno prevodi! */}
                 {dict.highlight && <span className="text-gold/90 font-medium border-b border-gold/20 pb-1">{dict.highlight}</span>}
                 {parts[1]}
               </p>
             </div>
-            <div className="mt-20 w-32 h-px bg-linear-to-r from-gold/60 to-transparent mx-auto lg:mx-0"></div>
+            <div className="mt-20 w-32 h-px bg-gradient-to-r from-gold/60 to-transparent mx-auto lg:mx-0"></div>
           </div>
           <div className="order-2">
             <div className="relative group mx-auto lg:ml-auto max-w-137.5">
-              <div className="absolute -inset-10 bg-hyde-emerald/40 blur-[100px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-[3s]"></div>
+              <div className="absolute -inset-10 bg-hyde-emerald/30 blur-[100px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-[3s]"></div>
               <div className="relative aspect-3/4 md:aspect-4/5 overflow-hidden border border-white/5 shadow-[0_0_50px_rgba(0,0,0,0.5)]">
                 <Image src="/images/interijer2.webp" alt="HYDE Interior" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover transition-all duration-[4s] scale-105 md:scale-100 md:grayscale brightness-100 md:brightness-90 group-hover:grayscale-0 group-hover:scale-110 group-hover:brightness-100" />
               </div>

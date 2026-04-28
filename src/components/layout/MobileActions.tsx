@@ -57,13 +57,13 @@ export function MobileActions() {
         transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)' 
       }}
     >
-      <div className="bg-[#0f0f0f]/90 backdrop-blur-xl border border-[#c9a84c]/50 rounded-full flex w-full max-w-[340px] shadow-[0_10px_40px_rgba(0,0,0,0.9)] overflow-hidden">
+      <div className="bg-[#0f0f0f]/90 backdrop-blur-xl border border-gold/50 rounded-full flex w-full max-w-[340px] shadow-[0_10px_40px_rgba(0,0,0,0.9)] overflow-hidden">
         
         <a 
           href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} 
-          className="flex-1 flex items-center justify-center gap-2 py-4 text-[#d4af37] border-r border-[#c9a84c]/30 text-[12px] font-bold uppercase tracking-widest active:bg-white/10 transition-colors"
+          className="flex-1 flex items-center justify-center gap-2 py-4 text-[#d4af37] border-r border-gold/30 text-[12px] font-bold uppercase tracking-widest active:bg-white/10 transition-colors"
         >
-          <Phone size={16} /> Poziv
+          <Phone size={16} /> Rezerviraj
         </a>
         
         <a 
