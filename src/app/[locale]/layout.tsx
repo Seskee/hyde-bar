@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { Cormorant_Garamond, Jost } from 'next/font/google'
-import '../styles/globals.css'
+import '@/styles/globals.css'
 import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from '@/lib/constants'
 import ClientWrapper from '@/components/layout/ClientWrapper'
 
@@ -71,7 +71,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <html lang="hr" className={`${cormorant.variable} ${jost.variable} scroll-smooth`}>
-      <body className="bg-[bg-hyde-bg] text-[#e8e2d6] antialiased">
+      <body className="bg-hyde-bg text-[#e8e2d6] antialiased">
         
         {/* INJEKTIRANJE SCHEMA MARKUPA ZA GOOGLE */}
         <script

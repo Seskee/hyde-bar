@@ -23,4 +23,4 @@ export interface NavLink {
   href: string
 }
 
-export type Locale = 'hr' | 'en'
+export type Locale = 'hr' | 'en' | 'de' | 'it'

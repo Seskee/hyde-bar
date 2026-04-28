@@ -1,0 +1,72 @@
+{
+  "navbar": {
+    "menu": "Menu",
+    "gallery": "Galleria",
+    "philosophy": "Filosofia",
+    "contact": "Contatto"
+  },
+  "hero": {
+    "subtitle": "Ljubuški • Eccellenza Culinaria"
+  },
+  "about": {
+    "badge": "La Nostra Filosofia",
+    "title1": "botanical",
+    "title2": "noir",
+    "description": "Al HYDE crediamo che l'assenza di luce acuisca i sensi. Il nostro approccio culinario si concentra su consistenza, aroma e sulla purezza degli ingredienti stagionali.",
+    "privateSelection": "Private Selection"
+  },
+  "gallery": {
+    "badge": "Atmosfera",
+    "title": "Vibe",
+    "img1": "Il Santuario",
+    "img2": "Fine Dine",
+    "img3": "Mixology",
+    "img4": "Dettagli Notturni"
+  },
+  "menu": {
+    "badge": "Selezione",
+    "title": "Menu Autunnale",
+    "quote": "\"Il gusto è l'unico senso che richiede un'anima.\""
+  },
+  "reviews": {
+    "subtitle": "Recensioni Google",
+    "shareBtn": "Condividi la Tua Esperienza",
+    "review1": "Una miscela perfetta di ambiente e gastronomia. Ogni boccone è arte e i cocktail sono una storia a sé. Il miglior posto in Erzegovina.",
+    "review2": "Un'atmosfera che ti trasporta in un altro mondo. Servizio di altissimo livello e la ribeye dry-aged è la perfezione assoluta.",
+    "review3": "Il concetto di botanical noir in tutto il suo splendore. Dall'ingresso al dessert, un'esperienza che risveglia tutti i sensi. Torneremo sicuramente."
+  },
+  "location": {
+    "badge": "La Location",
+    "title": "Ljubuški",
+    "barTitle": "Bar",
+    "kitchenTitle": "Cucina",
+    "monFri": "Lun - Ven",
+    "saturday": "Sabato",
+    "sunday": "Domenica",
+    "monSat": "Lun - Sab",
+    "directLine": "Linea Diretta"
+  },
+  "footer": {
+    "location": "Ljubuški",
+    "inquiry": "Richiesta",
+    "ratingText": "4.6 / 5 su Google",
+    "established": "Botanical Noir • Fondato nel 2024",
+    "privacy": "Privacy",
+    "terms": "Termini",
+    "designed": "Progettato per l'Eccellenza"
+  },
+
+
+  "menuPage": {
+    "title": "Il Menu",
+    "subtitle": "Selezione Ljubuški",
+    "starters": "Gli Antipasti",
+    "mains": "Piatti Principali"
+  },
+
+
+  "seo": {
+    "title": "HYDE bar & dine | Botanical Noir a Ljubuški",
+    "description": "Vivi l'alta gastronomia e un'atmosfera botanical noir nel cuore dell'Erzegovina. Prenota il tuo tavolo."
+  }
+}

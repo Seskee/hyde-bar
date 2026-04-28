@@ -1,16 +1,21 @@
-const menuItems = [
-  { name: 'Ember-Roasted Maitake', desc: 'Black garlic emulsion, cured egg yolk, wild onion ash', price: '24' },
-  { name: 'Hokkaido Scallop Crudo', desc: 'Green apple dashi, finger lime, cold-pressed shiso oil', price: '28' },
-  { name: 'Venison Tartare', desc: 'Juniper berry, fermented plum, smoked marrow toast', price: '32' },
-]
+'use client'
 
-export default function MenuSection() {
+// Dodali smo 'dict' prop
+export default function MenuSection({ dict }: { dict: any }) {
+  // Niz prebačen unutar komponente. Ako kasnije dodate opise u JSON, 
+  // ovdje ih samo pozovete s npr. desc: dict.maitakeDesc
+  const menuItems = [
+    { name: 'Ember-Roasted Maitake', desc: 'Black garlic emulsion, cured egg yolk, wild onion ash', price: '24' },
+    { name: 'Hokkaido Scallop Crudo', desc: 'Green apple dashi, finger lime, cold-pressed shiso oil', price: '28' },
+    { name: 'Venison Tartare', desc: 'Juniper berry, fermented plum, smoked marrow toast', price: '32' },
+  ]
+
   return (
     <section id="menu" className="py-32 bg-hyde-bg">
       <div className="max-w-4xl mx-auto px-6">
         <div className="text-center mb-24">
-          <span className="text-gold text-[10px] tracking-[0.5em] uppercase">Selection</span>
-          <h2 className="font-heading text-5xl md:text-6xl text-white mt-4">Autumn Menu</h2>
+          <span className="text-gold text-[10px] tracking-[0.5em] uppercase">{dict.badge}</span>
+          <h2 className="font-heading text-5xl md:text-6xl text-white mt-4">{dict.title}</h2>
           <div className="w-20 h-[1px] bg-gold/30 mx-auto mt-8"></div>
         </div>
 
@@ -32,7 +37,7 @@ export default function MenuSection() {
 
         <div className="mt-32 p-12 border border-gold/10 bg-white/[0.02] text-center">
           <p className="font-heading text-xl text-gold italic">
-            "Taste is the only sense that requires the soul."
+            {dict.quote}
           </p>
         </div>
       </div>

@@ -3,22 +3,24 @@ import { useState, useEffect } from 'react'
 import { Star, StarHalf, ChevronLeft, ChevronRight } from 'lucide-react'
 import { CONTACT } from '@/lib/constants'
 
-const reviews = [
-  {
-    text: "Savršen spoj ambijenta i gastronomije. Svaki zalogaj je umjetnost, a kokteli su priča za sebe. Najbolje mjesto u Hercegovini.",
-    author: "Marko M.",
-  },
-  {
-    text: "Atmosfera koja te prebaci u neki drugi svijet. Usluga na vrhunskom nivou, a dry-aged ribeye je apsolutno savršenstvo.",
-    author: "Ana S.",
-  },
-  {
-    text: "Botanical noir koncept u punom sjaju. Od ulaska do deserta, iskustvo koje budi sva čula. Definitivno se vraćamo.",
-    author: "Ivan K.",
-  }
-]
+// Dodali smo 'dict' prop
+export default function ReviewsSection({ dict }: { dict: any }) {
+  // Prebacili smo niz unutar komponente da možemo koristiti dict varijable
+  const reviews = [
+    {
+      text: dict.review1,
+      author: "Marko M.",
+    },
+    {
+      text: dict.review2,
+      author: "Ana S.",
+    },
+    {
+      text: dict.review3,
+      author: "Ivan K.",
+    }
+  ]
 
-export default function ReviewsSection() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isAnimating, setIsAnimating] = useState(false)
 
@@ -49,7 +51,7 @@ export default function ReviewsSection() {
   }
 
   return (
-    <section className="py-32 bg-[bg-hyde-bg] overflow-hidden reveal">
+    <section className="py-32 bg-hyde-bg overflow-hidden reveal">
       <div className="max-w-4xl mx-auto px-6 text-center">
         
         {/* GOOGLE RATING HEADER */}
@@ -65,7 +67,7 @@ export default function ReviewsSection() {
             4.6<span className="text-3xl text-white/30">/5</span>
           </h2>
           <span className="text-gold text-[10px] tracking-[0.6em] uppercase mt-6 opacity-70">
-            Google Reviews
+            {dict.subtitle}
           </span>
         </div>
 
@@ -106,7 +108,7 @@ export default function ReviewsSection() {
             className="inline-flex items-center gap-4 group border border-white/10 hover:border-gold/50 px-10 py-5 transition-all duration-500"
           >
             <span className="text-[10px] text-white/60 group-hover:text-gold uppercase tracking-[0.4em] transition-colors">
-              Share Your Experience
+              {dict.shareBtn}
             </span>
             <div className="w-8 h-px bg-white/20 group-hover:bg-gold transition-colors"></div>
           </a>

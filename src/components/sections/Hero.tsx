@@ -1,9 +1,10 @@
 'use client'
 import Image from 'next/image'
 
-export default function Hero() {
+// 1. Dodajemo 'dict' prop i definiramo da očekuje 'subtitle' string
+export default function Hero({ dict }: { dict: { subtitle: string } }) {
   return (
-    <section className="relative w-full h-[100dvh] flex items-center justify-center overflow-hidden bg-[#070e08]">
+    <section className="relative w-full h-[100dvh] flex items-center justify-center overflow-hidden bg-hyde-bg">
       <div className="absolute inset-0 z-0">
         <Image
           src="/images/interijer1.webp"
@@ -13,9 +14,9 @@ export default function Hero() {
           className="object-cover brightness-[0.25] scale-105 animate-slow-zoom"
         />
         {/* Emerald Spotlight Glow */}
-        <div className="absolute top-[-5%] right-[-5%] w-[60%] h-[60%] bg-[#0a2e1f]/40 blur-[120px] rounded-full"></div>
+        <div className="absolute top-[-5%] right-[-5%] w-[60%] h-[60%] bg-hyde-emerald/40 blur-[120px] rounded-full"></div>
         <div className="absolute bottom-[-5%] left-[-5%] w-[50%] h-[50%] bg-[#15573a]/20 blur-[100px] rounded-full"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#070e08]"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-hyde-bg"></div>
       </div>
 
       <div className="relative z-10 text-center flex flex-col items-center px-6">
@@ -29,10 +30,11 @@ export default function Hero() {
           />
         </div>
         
-        <div className="w-16 h-[1px] bg-gradient-to-r from-transparent via-gold to-transparent my-8 opacity-40"></div>
+        <div className="w-16 h-[1px] bg-linear-to-r from-transparent via-gold to-transparent my-8 opacity-40"></div>
         
+        {/* 2. Ovdje ispisujemo tekst ovisno o jeziku */}
         <p className="font-sans text-[10px] md:text-[12px] text-gold tracking-[0.6em] md:tracking-[1.2em] uppercase font-light text-glint ml-[1.2em]">
-          Ljubuški • Culinary Excellence
+          {dict.subtitle}
         </p>
       </div>
 

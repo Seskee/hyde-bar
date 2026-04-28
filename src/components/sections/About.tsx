@@ -1,7 +1,8 @@
 'use client'
 import Image from 'next/image'
 
-export default function About() {
+// Dodajemo 'dict' prop za prijevode
+export default function About({ dict }: { dict: any }) {
   return (
     <section id="about" className="relative w-full py-32 md:py-64 bg-hyde-bg overflow-hidden reveal">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
@@ -9,22 +10,21 @@ export default function About() {
           
           <div className="flex flex-col justify-center order-2 lg:order-1">
             <span className="text-gold text-[10px] tracking-[0.8em] uppercase block mb-10 opacity-50 font-medium">
-              Our Philosophy
+              {dict.badge}
             </span>
             
             <div className="mb-14">
               <h2 className="font-heading text-6xl md:text-[7rem] text-white italic lowercase leading-[0.7] tracking-tighter mb-4">
-                botanical
+                {dict.title1}
               </h2>
               <h2 className="font-heading text-6xl md:text-[7rem] text-gold italic lowercase leading-[0.7] tracking-tighter ml-12 md:ml-24">
-                noir
+                {dict.title2}
               </h2>
             </div>
 
             <div className="mt-8">
               <p className="font-heading text-2xl md:text-4xl text-white/80 leading-[1.6] italic font-light tracking-wide max-w-xl">
-                U HYDE-u vjerujemo da <span className="text-gold/90 font-medium border-b border-gold/20">odsustvo svjetla</span> pojačava osjetila. 
-                Naš kulinarski pristup fokusira se na teksturu, aromu i čistoću sezonskih sastojaka.
+                {dict.description}
               </p>
             </div>
 
@@ -47,8 +47,9 @@ export default function About() {
 
               {/* Floating Badge - Luxury Detail */}
               <div className="absolute -bottom-8 -left-8 hidden md:block bg-hyde-bg/90 border border-white/10 p-10 backdrop-blur-2xl z-20 shadow-2xl transform group-hover:-translate-y-2 transition-transform duration-1000">
-                 <p className="text-gold text-[10px] tracking-[0.6em] uppercase font-light leading-relaxed text-center">
-                   Private<br />Selection
+                 <p className="text-gold text-[10px] tracking-[0.6em] uppercase font-light leading-relaxed text-center whitespace-pre-line">
+                   {/* Automatski mijenja razmak u novi red (kako bi izgledalo kao Private <br> Selection) */}
+                   {dict.privateSelection.replace(' ', '\n')}
                  </p>
               </div>
             </div>
