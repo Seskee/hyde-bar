@@ -1,34 +1,37 @@
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import { getDictionary } from '@/lib/get-dictionary'
+import { SITE_URL } from '@/lib/constants'
 
 import type { Metadata } from 'next'
 
-// Dinamični SEO za Menu stranicu
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const dict = await getDictionary(locale as any)
 
   return {
     title: `${dict.menuPage.title} | HYDE bar & dine`,
-    // Recikliramo glavni opis, ali ga možemo i mijenjati kasnije
     description: dict.seo.description,
     alternates: {
+      canonical: `${SITE_URL}/${locale}/menu`,
       languages: {
-        'hr': '/hr/menu',
-        'en': '/en/menu',
-        'de': '/de/menu',
-        'it': '/it/menu',
+        // ← ISPRAVKA #16: x-default
+        'x-default': `${SITE_URL}/hr/menu`,
+        'hr': `${SITE_URL}/hr/menu`,
+        'en': `${SITE_URL}/en/menu`,
+        'de': `${SITE_URL}/de/menu`,
+        'it': `${SITE_URL}/it/menu`,
       },
     },
     openGraph: {
       title: `${dict.menuPage.title} | HYDE bar & dine`,
       description: dict.seo.description,
-      url: `https://hydebar.ba/${locale}/menu`,
+      url: `${SITE_URL}/${locale}/menu`,
       siteName: 'HYDE bar & dine',
       images: [
         {
-          url: '/images/interijer3.webp', // Ovdje možemo staviti drugu sliku, npr. hranu
+          // ← ISPRAVKA #15: apsolutni URL
+          url: `${SITE_URL}/images/interijer3.webp`,
           width: 1200,
           height: 630,
         },
@@ -36,11 +39,17 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       locale: locale,
       type: 'website',
     },
+    // ← ISPRAVKA #17: Twitter card
+    twitter: {
+      card: 'summary_large_image',
+      title: `${dict.menuPage.title} | HYDE bar & dine`,
+      description: dict.seo.description,
+      images: [`${SITE_URL}/images/interijer3.webp`],
+    },
   }
 }
 
 export default async function MenuPage({ params }: { params: Promise<{ locale: string }> }) {
-  // 1. Povlačimo jezik iz URL-a i učitavamo rječnik
   const { locale } = await params
   const dict = await getDictionary(locale as any)
 
@@ -65,12 +74,10 @@ export default async function MenuPage({ params }: { params: Promise<{ locale: s
 
   return (
     <main className="bg-hyde-bg min-h-screen">
-      {/* Navbar trenutno ne prima dict, ali radi savršeno */}
       <Navbar dict={dict.navbar} />
       
       <div className="pt-64 pb-32 px-6 max-w-7xl mx-auto">
         
-        {/* HEADER SEKCIJA */}
         <header className="text-center mb-52">
           <h1 className="font-heading text-8xl md:text-[12rem] italic text-white lowercase leading-none tracking-tighter animate-slow-reveal">
             {dict.menuPage.title}
@@ -107,7 +114,6 @@ export default async function MenuPage({ params }: { params: Promise<{ locale: s
         ))}
       </div>
       
-      {/* 2. Proslijeđen dict u footer da ne baca grešku */}
       <Footer dict={dict.footer} />
     </main>
   )

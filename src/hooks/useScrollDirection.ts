@@ -14,7 +14,8 @@ export function useScrollDirection() {
       }
       lastScrollY = scrollY > 0 ? scrollY : 0
     }
-    window.addEventListener('scroll', updateScrollDirection)
+    // ← ISPRAVKA: dodan { passive: true } za bolji scroll performance na mobilnim
+    window.addEventListener('scroll', updateScrollDirection, { passive: true })
     return () => window.removeEventListener('scroll', updateScrollDirection)
   }, [scrollDirection])
 

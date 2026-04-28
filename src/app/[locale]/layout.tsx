@@ -18,40 +18,65 @@ const jost = Jost({
   display: 'swap',
 })
 
-// SEO Metapodaci sa Open Graph slikom za WhatsApp / Instagram
-export const metadata: Metadata = {
-  title: {
-    default: `${SITE_NAME} — Ljubuški`,
-    template: `%s | ${SITE_NAME}`,
-  },
-  description: SITE_DESCRIPTION,
-  icons: { icon: '/favicon.ico' },
-  openGraph: {
-    title: `${SITE_NAME} — Ljubuški`,
+// ← ISPRAVKA: generateMetadata umjesto statičnog metadata da dobijemo locale
+export async function generateMetadata(
+  { params }: { params: Promise<{ locale: string }> }
+): Promise<Metadata> {
+  const { locale } = await params
+
+  return {
+    title: {
+      default: `${SITE_NAME} — Ljubuški`,
+      template: `%s | ${SITE_NAME}`,
+    },
     description: SITE_DESCRIPTION,
-    url: SITE_URL,
-    siteName: SITE_NAME,
-    images: [
-      {
-        url: `${SITE_URL}/images/interijer1.webp`, // Apsolutni link potreban za WhatsApp/FB
-        width: 1200,
-        height: 630,
-        alt: `${SITE_NAME} Interior`,
-      },
-    ],
-    locale: 'hr_HR',
-    type: 'website',
-  },
+    icons: { icon: '/favicon.ico' },
+    // ← ISPRAVKA #23: canonical URL
+    alternates: {
+      canonical: `${SITE_URL}/${locale}`,
+    },
+    openGraph: {
+      title: `${SITE_NAME} — Ljubuški`,
+      description: SITE_DESCRIPTION,
+      url: `${SITE_URL}/${locale}`,
+      siteName: SITE_NAME,
+      images: [
+        {
+          url: `${SITE_URL}/images/interijer1.webp`,
+          width: 1200,
+          height: 630,
+          alt: `${SITE_NAME} Interior`,
+        },
+      ],
+      locale: locale,
+      type: 'website',
+    },
+    // ← ISPRAVKA #17: Twitter/X card
+    twitter: {
+      card: 'summary_large_image',
+      title: `${SITE_NAME} — Ljubuški`,
+      description: SITE_DESCRIPTION,
+      images: [`${SITE_URL}/images/interijer1.webp`],
+    },
+  }
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  // OVO JE JSON-LD SCHEMA ZA RESTORAN (Google SEO Booster)
+export default async function RootLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await params
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Restaurant",
     "name": SITE_NAME,
     "image": `${SITE_URL}/images/interijer1.webp`,
     "description": SITE_DESCRIPTION,
+    "url": SITE_URL,
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Zvonimirova",
@@ -65,12 +90,34 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "4.6",
-      "reviewCount": "150" // Možeš ažurirati broj s vremena na vrijeme
-    }
+      "reviewCount": 150  // ← ISPRAVKA #12: broj, ne string
+    },
+    // ← ISPRAVKA #18: radno vrijeme za Google
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "07:00",
+        "closes": "01:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Saturday",
+        "opens": "08:00",
+        "closes": "01:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Sunday",
+        "opens": "12:00",
+        "closes": "00:00"
+      }
+    ]
   }
 
   return (
-    <html lang="hr" className={`${cormorant.variable} ${jost.variable} scroll-smooth`}>
+    // ← ISPRAVKA #14: dinamički lang atribut umjesto hardcoded "hr"
+    <html lang={locale} className={`${cormorant.variable} ${jost.variable} scroll-smooth`}>
       <body className="bg-hyde-bg text-[#e8e2d6] antialiased">
         <noscript>
           <div className="fixed top-0 left-0 w-full z-1000 bg-gold text-hyde-bg px-6 py-2 text-center text-[10px] uppercase tracking-widest font-medium">
@@ -78,17 +125,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
         </noscript>
         
-        {/* INJEKTIRANJE SCHEMA MARKUPA ZA GOOGLE */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         
-        {/* Wrapper koji brine o Lenisu i animacijama */}
         <ClientWrapper>
           {children}
         </ClientWrapper>
-        
       </body>
     </html>
   )

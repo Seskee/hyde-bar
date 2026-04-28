@@ -13,6 +13,7 @@
     "title1": "botanical",
     "title2": "noir",
     "description": "Al HYDE crediamo che l'assenza di luce acuisca i sensi. Il nostro approccio culinario si concentra su consistenza, aroma e sulla purezza degli ingredienti stagionali.",
+    "highlight": "assenza di luce",
     "privateSelection": "Private Selection"
   },
   "gallery": {
@@ -55,16 +56,12 @@
     "terms": "Termini",
     "designed": "Progettato per l'Eccellenza"
   },
-
-
   "menuPage": {
     "title": "Il Menu",
     "subtitle": "Selezione Ljubuški",
     "starters": "Gli Antipasti",
     "mains": "Piatti Principali"
   },
-
-
   "seo": {
     "title": "HYDE bar & dine | Botanical Noir a Ljubuški",
     "description": "Vivi l'alta gastronomia e un'atmosfera botanical noir nel cuore dell'Erzegovina. Prenota il tuo tavolo."
