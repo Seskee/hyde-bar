@@ -3,9 +3,7 @@ import { useState, useEffect } from 'react'
 import { Star, StarHalf, ChevronLeft, ChevronRight } from 'lucide-react'
 import { CONTACT } from '@/lib/constants'
 
-// Dodali smo 'dict' prop
 export default function ReviewsSection({ dict }: { dict: any }) {
-  // Prebacili smo niz unutar komponente da možemo koristiti dict varijable
   const reviews = [
     {
       text: dict.review1,
@@ -24,7 +22,6 @@ export default function ReviewsSection({ dict }: { dict: any }) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isAnimating, setIsAnimating] = useState(false)
 
-  // Auto-play logika (mijenja recenziju svakih 6 sekundi)
   useEffect(() => {
     const timer = setInterval(() => {
       handleNext()
@@ -74,7 +71,6 @@ export default function ReviewsSection({ dict }: { dict: any }) {
         {/* SLIDER RECENZIJA */}
         <div className="relative min-h-50 flex items-center justify-center">
           
-          {/* Lijeve i desne kontrole */}
           <button 
             onClick={handlePrev}
             className="absolute left-0 md:-left-12 text-white/20 hover:text-gold transition-colors p-2 z-10"
@@ -99,18 +95,18 @@ export default function ReviewsSection({ dict }: { dict: any }) {
           </button>
         </div>
 
-        {/* CTA GUMB */}
+        {/* CTA GUMB - SADA OPTIMIZIRAN ZA MOBITEL */}
         <div className="mt-24">
           <a 
             href={CONTACT.googleReviewsUrl} 
             target="_blank" 
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-4 group border border-white/10 hover:border-gold/50 px-10 py-5 transition-all duration-500"
+            className="inline-flex items-center gap-4 group border border-gold/30 md:border-white/10 hover:border-gold/50 px-10 py-5 transition-all duration-500"
           >
-            <span className="text-[10px] text-white/60 group-hover:text-gold uppercase tracking-[0.4em] transition-colors">
+            <span className="text-[10px] text-gold md:text-white/60 group-hover:text-gold uppercase tracking-[0.4em] transition-colors">
               {dict.shareBtn}
             </span>
-            <div className="w-8 h-px bg-white/20 group-hover:bg-gold transition-colors"></div>
+            <div className="w-8 h-px bg-gold/40 md:bg-white/20 group-hover:bg-gold transition-colors"></div>
           </a>
         </div>
 

@@ -26,7 +26,7 @@ export default function LocationSection({ dict }: { dict: any }) {
               </div>
             </div>
 
-            {/* RADNO VRIJEME - FIKSANO PORAVNANJE */}
+            {/* RADNO VRIJEME */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-16 border-t border-white/5 pt-16">
               
               {/* BAR */}
@@ -66,7 +66,6 @@ export default function LocationSection({ dict }: { dict: any }) {
                     <span>{dict.sunday}</span> 
                     <span className="text-white tracking-widest font-medium">12:00 — 23:00</span>
                   </li>
-                  {/* Prazan red da Kitchen visinom odgovara Baru radi simetrije */}
                   <li className="flex justify-between border-b border-transparent pb-3">
                     <span className="opacity-0">.</span>
                     <span className="opacity-0">.</span>
@@ -86,16 +85,19 @@ export default function LocationSection({ dict }: { dict: any }) {
             </div>
           </div>
 
-          {/* DESNA STRANA: MAPA */}
-          <div className="h-125 md:h-187.5 w-full relative border border-white/5 overflow-hidden group shadow-2xl">
+          {/* DESNA STRANA: MAPA (SADA U BOJI) */}
+          <div className="h-125 md:h-187.5 w-full relative border border-white/5 overflow-hidden group shadow-2xl bg-hyde-bg">
             <iframe 
               src={CONTACT.googleMaps}
-              width="100%" height="100%" style={{ border: 0 }} 
-              allowFullScreen loading="lazy" 
-              className="grayscale brightness-[0.5] contrast-[1.1] group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-[2s] ease-in-out"
+              width="100%" 
+              height="100%" 
+              style={{ border: 0 }} 
+              allowFullScreen 
+              loading="lazy" 
+              className="w-full h-full opacity-90 hover:opacity-100 transition-opacity duration-700"
             ></iframe>
-            {/* Suptilni overlay preko mape */}
-            <div className="absolute inset-0 pointer-events-none border border-white/5 shadow-[inset_0_0_100px_rgba(0,0,0,0.4)]"></div>
+            {/* Suptilni unutarnji sjaj za luksuzniji dojam rubova */}
+            <div className="absolute inset-0 pointer-events-none border border-white/5 shadow-[inset_0_0_40px_rgba(0,0,0,0.3)]"></div>
           </div>
 
         </div>
