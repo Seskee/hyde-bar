@@ -30,10 +30,10 @@ export default function Footer({ dict }: { dict: any }) {
             
             {/* Društvene mreže */}
             <div className="flex items-center gap-8">
-              <Link href="https://www.instagram.com/hyde_bar_dine/" target="_blank" className="text-white/30 hover:text-gold transition-all duration-500 transform hover:scale-110">
+              <Link href="https://www.instagram.com/hyde_bar_dine/" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-gold transition-all duration-500 transform hover:scale-110">
                 <Instagram size={18} strokeWidth={1.5} />
               </Link>
-              <Link href="https://www.facebook.com/profile.php?id=61563303958158" target="_blank" className="text-white/30 hover:text-gold transition-all duration-500 transform hover:scale-110">
+              <Link href="https://www.facebook.com/profile.php?id=61563303958158" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-gold transition-all duration-500 transform hover:scale-110">
                 <Facebook size={18} strokeWidth={1.5} />
               </Link>
               <Link href={`mailto:${CONTACT.email}`} className="text-white/30 hover:text-gold transition-all duration-500 transform hover:scale-110">

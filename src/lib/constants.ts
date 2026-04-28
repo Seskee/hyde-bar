@@ -1,5 +1,5 @@
 export const SITE_NAME = 'HYDE bar & dine'
-export const SITE_URL = 'https://hydebar.ba' // ili .hr
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://hydebar.ba'
 export const SITE_DESCRIPTION = 'Premium cocktail bar & fine dining experience in the heart of Ljubuški. Where botanical noir meets culinary excellence.'
 
 export const CONTACT = {
