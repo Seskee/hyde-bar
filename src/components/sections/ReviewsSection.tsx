@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect, useCallback, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Star, StarHalf, ChevronLeft, ChevronRight } from 'lucide-react'
 import { CONTACT } from '@/lib/constants'
 import type { ReviewsDict } from '@/types'
@@ -14,36 +14,40 @@ export default function ReviewsSection({ dict }: { dict: ReviewsDict }) {
 
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isAnimating, setIsAnimating] = useState(false)
-  
-  // MICRO-FIX: Referenca za timeout koja sprječava curenje memorije (memory leak)
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
-  const handleNext = useCallback(() => {
-    setIsAnimating(true)
-    if (timeoutRef.current) clearTimeout(timeoutRef.current)
-    timeoutRef.current = setTimeout(() => { 
-      setCurrentIndex(i => (i + 1) % reviews.length)
-      setIsAnimating(false) 
-    }, 400)
-  }, [reviews.length])
+  const isAnimatingRef = useRef(false)
+  const animTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const intervalRef = useRef<NodeJS.Timeout | null>(null)
 
-  const handlePrev = () => {
-    if (isAnimating) return
+  const goTo = (getNext: (i: number) => number) => {
+    if (isAnimatingRef.current) return
+    isAnimatingRef.current = true
     setIsAnimating(true)
-    if (timeoutRef.current) clearTimeout(timeoutRef.current)
-    timeoutRef.current = setTimeout(() => { 
-      setCurrentIndex(i => (i - 1 + reviews.length) % reviews.length)
-      setIsAnimating(false) 
+    if (animTimeoutRef.current) clearTimeout(animTimeoutRef.current)
+    animTimeoutRef.current = setTimeout(() => {
+      setCurrentIndex(i => getNext(i))
+      setIsAnimating(false)
+      isAnimatingRef.current = false
     }, 400)
   }
 
+  const startInterval = () => {
+    if (intervalRef.current) clearInterval(intervalRef.current)
+    intervalRef.current = setInterval(() => {
+      goTo(i => (i + 1) % reviews.length)
+    }, 7000)
+  }
+
   useEffect(() => {
-    const timer = setInterval(handleNext, 7000)
+    startInterval()
     return () => {
-      clearInterval(timer)
-      if (timeoutRef.current) clearTimeout(timeoutRef.current)
+      if (intervalRef.current) clearInterval(intervalRef.current)
+      if (animTimeoutRef.current) clearTimeout(animTimeoutRef.current)
     }
-  }, [handleNext])
+  }, [])
+
+  const handleNext = () => { goTo(i => (i + 1) % reviews.length); startInterval() }
+  const handlePrev = () => { goTo(i => (i - 1 + reviews.length) % reviews.length); startInterval() }
 
   return (
     <section className="relative py-32 bg-hyde-bg overflow-hidden reveal">
@@ -74,12 +78,12 @@ export default function ReviewsSection({ dict }: { dict: ReviewsDict }) {
               </button>
             </MagneticWrapper>
           </div>
-          
+
           <div className="max-w-2xl px-12 transition-all duration-400 ease-in-out" style={{ opacity: isAnimating ? 0 : 1, transform: isAnimating ? 'scale(0.98)' : 'scale(1)' }}>
             <p className="font-heading text-2xl md:text-4xl text-white/95 leading-[1.6] italic font-normal tracking-wide mb-8">"{reviews[currentIndex].text}"</p>
             <p className="font-sans text-[12px] text-gold uppercase tracking-[0.3em] font-medium">— {reviews[currentIndex].author}</p>
           </div>
-          
+
           <div className="absolute right-0 md:-right-12 z-10">
             <MagneticWrapper>
               <button aria-label="Sljedeća recenzija" onClick={handleNext} className="text-white/50 hover:text-gold transition-colors p-4">

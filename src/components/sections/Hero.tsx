@@ -22,7 +22,7 @@ export default function Hero({ dict }: { dict: HeroDict }) {
         {/* Lagani prijelaz na dnu koji stapa sliku u našu novu zelenu podlogu */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-hyde-bg pointer-events-none"></div>
       </div>
-      
+    
       {/* Središnji sadržaj */}
       <div className="relative z-10 text-center flex flex-col items-center px-6 py-20">
         <div className="relative w-64 h-32 md:w-[550px] md:h-[280px] mb-4 animate-breathe">
@@ -40,7 +40,7 @@ export default function Hero({ dict }: { dict: HeroDict }) {
         
         <div className="w-16 h-px bg-gradient-to-r from-transparent via-[#c9a84c] to-transparent my-8 opacity-60"></div>
         
-        <p className="font-sans text-[11px] md:text-[13px] text-[#c9a84c] tracking-[0.6em] md:tracking-[1.2em] uppercase font-normal text-glint ml-[1.2em]">
+        <p className="font-sans text-[13px] md:text-[15px] text-[#c9a84c] tracking-[0.5em] md:tracking-[0.9em] uppercase font-light text-glint ml-[0.9em] opacity-90">
           {dict.subtitle}
         </p>
       </div>

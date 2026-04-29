@@ -10,7 +10,7 @@ export default function About({ dict }: { dict: AboutDict }) {
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-32 items-center">
           <div className="flex flex-col justify-center order-1">
-            <span className="text-gold text-[10px] tracking-[0.8em] uppercase block mb-10 opacity-50 font-medium text-center lg:text-left">{dict.badge}</span>
+            <span className="text-gold text-[12px] tracking-[0.6em] uppercase block mb-10 opacity-75 font-medium text-center lg:text-left">{dict.badge}</span>
             <div className="mb-14 text-center lg:text-left">
               <h2 className="font-heading text-6xl md:text-[7rem] text-white italic lowercase leading-[0.7] tracking-tighter mb-4">{dict.title1}</h2>
               <h2 className="font-heading text-6xl md:text-[7rem] text-gold italic lowercase leading-[0.7] tracking-tighter ml-12 md:ml-24">{dict.title2}</h2>

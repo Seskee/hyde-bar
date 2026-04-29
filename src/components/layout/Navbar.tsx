@@ -164,6 +164,7 @@ export default function Navbar({ dict }: { dict: NavbarDict }) {
             {['hr', 'en', 'de', 'it'].map((lang) => (
               <button
                 key={lang}
+                aria-label={`Promijeni jezik na ${lang.toUpperCase()}`}
                 onClick={() => handleLocaleChange(lang)}
                 className={`transition-colors ${lang === currentLocale ? 'text-gold' : 'text-white/40 hover:text-white'}`}
               >

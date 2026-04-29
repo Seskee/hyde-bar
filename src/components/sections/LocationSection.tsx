@@ -31,7 +31,7 @@ export default function LocationSection({ dict, actionsDict }: { dict: LocationD
             {/* Info dio */}
             <div className="space-y-16">
               <div>
-                <span className="text-gold text-[11px] tracking-[0.8em] uppercase block mb-6 opacity-70 font-medium">{dict.badge}</span>
+                <span className="text-gold text-[12px] tracking-[0.6em] uppercase block mb-6 opacity-85 font-medium">{dict.badge}</span>
                 <h2 className="font-heading text-6xl md:text-8xl text-white mb-10 italic lowercase leading-none">{dict.title}</h2>
                 <div className="flex items-start gap-4 text-white/70 group">
                   <MapPin className="w-5 h-5 text-gold shrink-0 mt-1" />

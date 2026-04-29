@@ -39,7 +39,7 @@ export default function GallerySection({ dict }: { dict: GalleryDict }) {
     <section id="gallery" className="py-24 md:py-48 px-6 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <div className="mb-20 reveal active">
-          <span className="text-gold text-[10px] tracking-[0.8em] uppercase block mb-6 opacity-50 font-medium">{dict.badge}</span>
+          <span className="text-gold text-[12px] tracking-[0.6em] uppercase block mb-6 opacity-75 font-medium">{dict.badge}</span>
           <h2 className="font-heading text-5xl md:text-8xl text-white italic lowercase leading-none">{dict.title}</h2>
         </div>
 
@@ -77,6 +77,7 @@ export default function GallerySection({ dict }: { dict: GalleryDict }) {
             {images.map((_, i) => (
               <button
                 key={i}
+                aria-label={`Prikaži sliku ${i + 1}`}
                 onClick={() => setActiveSlide(i)}
                 className={`rounded-full transition-all duration-300 ${i === activeSlide ? 'w-6 h-1.5 bg-gold' : 'w-1.5 h-1.5 bg-white/30'}`}
               />
