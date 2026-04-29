@@ -20,7 +20,6 @@ export default function Navbar({ dict }: { dict: NavbarDict }) {
   const segments = pathname.split('/')
   const currentLocale = segments[1] || 'hr'
 
-  // Sinkronizira isOpen u ref bez ponovnog mountanja glavnog effecta
   useEffect(() => {
     isOpenRef.current = isOpen
     if (isOpen) {
@@ -31,18 +30,22 @@ export default function Navbar({ dict }: { dict: NavbarDict }) {
     return () => { document.body.style.overflow = '' }
   }, [isOpen])
 
-  // Glavni effect — montira se JEDNOM, nema re-subscribea na svaki scroll
   useEffect(() => {
     lastScrollYRef.current = window.scrollY
     setIsAtTop(window.scrollY < 50)
 
     const handleScroll = () => {
       const currentScrollY = window.scrollY
-      setIsAtTop(currentScrollY < 50)
+      const atTop = currentScrollY < 50
+
+      // FIX: Provjeri je li vrijednost stvarno promijenjena prije setState
+      // — sprječava nepotrebne re-rendere na svakom scroll eventu
+      setIsAtTop(prev => prev !== atTop ? atTop : prev)
+
       if (currentScrollY > lastScrollYRef.current && currentScrollY > 100 && !isOpenRef.current) {
-        setIsHidden(true)
+        setIsHidden(prev => prev ? prev : true)
       } else {
-        setIsHidden(false)
+        setIsHidden(prev => prev ? false : prev)
       }
       lastScrollYRef.current = currentScrollY
     }
@@ -101,9 +104,15 @@ export default function Navbar({ dict }: { dict: NavbarDict }) {
 
   return (
     <>
-      <nav className={`fixed top-0 w-full z-[9998] transition-all duration-700 ease-in-out border-b 
-        ${isHidden ? '-translate-y-full' : 'translate-y-0'} 
-        ${isAtTop && !isOpen ? 'bg-transparent border-transparent py-8' : 'bg-hyde-bg/95 backdrop-blur-xl border-white/10 py-4 shadow-lg'}`}
+      <nav className={`fixed top-0 w-full z-[9998] transition-all duration-700 ease-in-out border-b
+        ${isHidden ? '-translate-y-full' : 'translate-y-0'}
+        ${/* FIX: backdrop-blur-xl je UVIJEK prisutan — preglednik ga ne mora stvarati usred skrola.
+             Samo se mijenja boja pozadine i border, što je jeftina operacija za GPU. */''}
+        backdrop-blur-xl
+        ${isAtTop && !isOpen
+          ? 'bg-transparent border-transparent py-8'
+          : 'bg-hyde-bg/95 border-white/10 py-4 shadow-lg'
+        }`}
       >
         <div className="max-w-7xl mx-auto flex justify-between items-center px-6">
 

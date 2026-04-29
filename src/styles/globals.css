@@ -5,7 +5,6 @@
   --color-gold-light: #e0c06a;
   --color-hyde-emerald: #125e36;
   
-  /* LUKSUZNA TAMNO ZELENA - Nema više crne! */
   --color-hyde-bg: #0b2113; 
   
   --font-heading: var(--font-cormorant);
@@ -21,10 +20,25 @@
     color: #f2efe9;
     font-family: var(--font-jost), sans-serif;
     overflow-x: hidden;
-    /* Suptilna, topla rasvjeta po cijeloj stranici umjesto agresivnih krugova */
+  }
+
+  /*
+   * FIX SCROLL JANK #3:
+   * Radijalni gradienti su premješteni iz `body background-image` u ::before pseudo-element
+   * s `position: fixed`. Ovo ih stavlja na vlastiti GPU compositor layer koji se
+   * NE repaintuje na svaki scroll frame — body repaint je eliminiran.
+   */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
     background-image: 
       radial-gradient(circle at 15% 50%, rgba(18, 94, 54, 0.15) 0%, transparent 70%),
       radial-gradient(circle at 85% 100%, rgba(201, 168, 76, 0.05) 0%, transparent 70%);
+    /* Osigurava da preglednik zna da se ovaj sloj neće mijenjati */
+    will-change: auto;
   }
 
   @media (pointer: fine) {
@@ -64,11 +78,22 @@
   from { transform: scale(1.0); }
   to { transform: scale(1.12); }
 }
-.animate-slow-zoom { animation: slow-zoom 20s infinite alternate ease-in-out; }
+.animate-slow-zoom { 
+  animation: slow-zoom 20s infinite alternate ease-in-out;
+  /*
+   * FIX SCROLL JANK #3b:
+   * will-change: transform govori pregledniku da unaprijed promoviraj
+   * ovaj element na vlastiti GPU layer. Bez ovoga, preglednik može
+   * odlučiti repaintati ga zajedno s ostatkom stranice.
+   */
+  will-change: transform;
+}
 
 @keyframes luxury-breathe {
   0%, 100% { transform: scale(1); opacity: 0.8; }
   50% { transform: scale(1.04); opacity: 1; }
 }
-.animate-breathe { animation: luxury-breathe 7s ease-in-out infinite; }
-
+.animate-breathe { 
+  animation: luxury-breathe 7s ease-in-out infinite;
+  will-change: transform;
+}
