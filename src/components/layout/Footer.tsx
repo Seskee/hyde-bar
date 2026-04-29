@@ -24,12 +24,12 @@ export default function Footer({ dict }: { dict: FooterDict }) {
           
           <div className="flex flex-col items-center justify-center gap-8 order-first md:order-0">
             <Link href="/" className="relative w-28 h-10 opacity-90 hover:opacity-100 transition-opacity">
-              <Image src="/images/logo.webp" alt="HYDE Logo" fill sizes="(max-width: 768px) 112px, 112px" className="object-contain mix-blend-screen" />
+              <Image src="/images/logo.webp" alt="HYDE Logo" fill sizes="(max-width: 768px) 112px, 112px" loading="eager" fetchPriority="high" className="object-contain mix-blend-screen" priority />
             </Link>
             <div className="flex items-center gap-8">
-              <Link href="https://www.instagram.com/hyde_bar_dine/" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-gold transition-all duration-500 transform hover:scale-110"><Instagram size={20} strokeWidth={1.5} /></Link>
-              <Link href="https://www.facebook.com/profile.php?id=61563303958158" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-gold transition-all duration-500 transform hover:scale-110"><Facebook size={20} strokeWidth={1.5} /></Link>
-              <Link href={`mailto:${CONTACT.email}`} className="text-white/70 hover:text-gold transition-all duration-500 transform hover:scale-110"><Mail size={20} strokeWidth={1.5} /></Link>
+              <Link href="https://www.instagram.com/hyde_bar_dine/" target="_blank" rel="noopener noreferrer"  aria-label="Posjetite naš Instagram profil" className="text-white/70 hover:text-gold transition-all duration-500 transform hover:scale-110"><Instagram size={20} strokeWidth={1.5} /></Link>
+              <Link href="https://www.facebook.com/profile.php?id=61563303958158" target="_blank" rel="noopener noreferrer" aria-label="Posjetite našu Facebook stranicu" className="text-white/70 hover:text-gold transition-all duration-500 transform hover:scale-110"><Facebook size={20} strokeWidth={1.5} /></Link>
+              <Link href={`mailto:${CONTACT.email}`}  aria-label="Pošaljite nam email" className="text-white/70 hover:text-gold transition-all duration-500 transform hover:scale-110"><Mail size={20} strokeWidth={1.5} /></Link>
             </div>
             <a href={CONTACT.googleReviewsUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 group -mt-2.5 cursor-pointer">
               <div className="flex text-gold/80 group-hover:text-gold transition-colors duration-500">

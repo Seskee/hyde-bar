@@ -50,7 +50,7 @@ export default function LocationSection({ dict, actionsDict }: { dict: LocationD
                 <div className="space-y-8">
                   <div className="flex items-center gap-3">
                     <Clock className="w-4 h-4 text-gold opacity-80" />
-                    <h4 className="text-gold text-[11px] uppercase tracking-[0.4em] font-medium">{dict.barTitle}</h4>
+                    <h3 className="text-gold text-[11px] uppercase tracking-[0.4em] font-medium">{dict.barTitle}</h3>
                   </div>
                   <ul className="text-[11px] uppercase tracking-[0.25em] text-white/70 space-y-5 font-normal">
                     <li className="flex justify-between border-b border-white/10 pb-3"><span>{dict.monFri}</span><span className="text-white tracking-widest font-medium">07:00 — 01:00</span></li>
@@ -127,7 +127,7 @@ export default function LocationSection({ dict, actionsDict }: { dict: LocationD
         }}
       >
         <div 
-          style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(7, 14, 8, 0.9)', backdropFilter: 'blur(8px)', cursor: 'pointer' }}
+          style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(7, 14, 8, 0.9)', backdropFilter: 'blur(8px)' }}
           onClick={() => setShowMapMenu(false)} 
         />
         

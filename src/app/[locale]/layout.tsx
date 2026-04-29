@@ -19,7 +19,7 @@ export default async function RootLayout({ children, params }: { children: React
   const dict = await getDictionary(locale)
 
   return (
-    <html lang={locale} className={`${cormorant.variable} ${jost.variable} scroll-smooth`}>
+    <html lang={locale} className={`${cormorant.variable} ${jost.variable} scroll-smooth`} data-scroll-behavior="smooth">
       <body className="bg-[#0c0c0c] text-[#e8e2d6] antialiased overflow-x-hidden relative">
         
         {/* Prvo UI koji mora biti IZNAD svega */}
@@ -31,7 +31,6 @@ export default async function RootLayout({ children, params }: { children: React
         {/* Glavni sadržaj */}
         <ClientWrapper>{children}</ClientWrapper>
 
-        <div className="grain-overlay" style={{ pointerEvents: 'none' }} />
       </body>
     </html>
   )

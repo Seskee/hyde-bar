@@ -35,7 +35,7 @@ export function middleware(request: NextRequest) {
   response.headers.set('x-nonce', nonce)
   const cspHeader = `
     default-src 'self';
-    script-src 'self' 'nonce-${nonce}' 'strict-dynamic' ${process.env.NODE_ENV === 'development' ? "'unsafe-eval'" : ''};
+    script-src 'self' 'nonce-${nonce}' 'strict-dynamic' 'unsafe-inline' http: https: ${process.env.NEXT_PUBLIC_IS_DEV === 'true' ? "'unsafe-eval'" : ''};
     style-src 'self' 'unsafe-inline';
     img-src 'self' blob: data: https:;
     font-src 'self' data: https://fonts.gstatic.com;
@@ -47,8 +47,13 @@ export function middleware(request: NextRequest) {
     frame-ancestors 'none';
     upgrade-insecure-requests;
   `
+  
   response.headers.set('Content-Security-Policy', cspHeader.replace(/\s{2,}/g, ' ').trim())
   
+  // COOP izolacija
+  response.headers.set('Cross-Origin-Opener-Policy', 'same-origin')
+  
+  // ZADNJA LINIJA - mora postojati!
   return response
 }
 
