@@ -1,11 +1,13 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { MapPin, Clock, Utensils, X, Navigation } from 'lucide-react'
 import { CONTACT } from '@/lib/constants'
 import type { LocationDict, ActionsDict } from '@/types'
 
 export default function LocationSection({ dict, actionsDict }: { dict: LocationDict, actionsDict: ActionsDict }) {
   const [showMapMenu, setShowMapMenu] = useState(false)
+  const [isMapVisible, setIsMapVisible] = useState(false)
+  const mapContainerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (showMapMenu) document.body.style.overflow = 'hidden'
@@ -13,16 +15,33 @@ export default function LocationSection({ dict, actionsDict }: { dict: LocationD
     return () => { document.body.style.overflow = '' }
   }, [showMapMenu])
 
+  // STRICT LAZY LOAD: Promatramo kada će sekcija ući u ekran
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsMapVisible(true)
+          observer.disconnect() // Prekidamo promatranje čim učitamo kartu
+        }
+      },
+      // Učitaj mapu kada je 300px blizu ekrana
+      { rootMargin: '300px' }
+    )
+
+    if (mapContainerRef.current) observer.observe(mapContainerRef.current)
+    return () => observer.disconnect()
+  }, [])
+
   const encodedAddress = encodeURIComponent(CONTACT.address)
   const appleMapsLink = `https://maps.apple.com/?q=${encodedAddress}`
 
   return (
     <>
-      {/* FIX: py-16 md:py-24 standard spacing */}
       <section id="location" className="py-16 md:py-24 px-6 bg-hyde-bg overflow-hidden reveal relative">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 lg:gap-32 items-start">
 
+            {/* INFO DIO */}
             <div className="space-y-16">
               <div>
                 <span className="text-gold text-sm tracking-widest uppercase block mb-6 opacity-85 font-medium">{dict.badge}</span>
@@ -72,18 +91,25 @@ export default function LocationSection({ dict, actionsDict }: { dict: LocationD
               </div>
             </div>
 
-            <div className="h-[500px] md:h-[750px] w-full relative border border-white/10 overflow-hidden group shadow-2xl bg-hyde-bg">
-              <iframe 
-                src={CONTACT.googleMapsEmbed} 
-                title="HYDE bar & dine lokacija" 
-                width="100%" 
-                height="100%" 
-                style={{ border: 0 }} 
-                allowFullScreen 
-                loading="lazy" 
-                referrerPolicy="no-referrer-when-downgrade" 
-                className="w-full h-full opacity-80 group-hover:opacity-60 transition-opacity duration-700 pointer-events-none" 
-              />
+            {/* KARTA DIO */}
+            <div ref={mapContainerRef} className="h-[500px] md:h-[750px] w-full relative border border-white/10 overflow-hidden group shadow-2xl bg-hyde-bg flex items-center justify-center">
+              
+              {/* Renderira Iframe samo ako je vidljiv korisniku */}
+              {isMapVisible ? (
+                <iframe 
+                  src={CONTACT.googleMapsEmbed} 
+                  title="HYDE bar & dine lokacija" 
+                  width="100%" 
+                  height="100%" 
+                  style={{ border: 0 }} 
+                  allowFullScreen 
+                  loading="lazy" 
+                  referrerPolicy="no-referrer-when-downgrade" 
+                  className="absolute inset-0 w-full h-full opacity-80 group-hover:opacity-60 transition-opacity duration-700 pointer-events-none" 
+                />
+              ) : (
+                <div className="absolute inset-0 bg-white/5 animate-pulse" />
+              )}
               
               <div className="absolute inset-0 flex items-center justify-center">
                 <button 
@@ -99,6 +125,7 @@ export default function LocationSection({ dict, actionsDict }: { dict: LocationD
         </div>
       </section>
 
+      {/* MAP MODAL OSTANAK ISTI */}
       <div 
         style={{
           position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh',
@@ -121,11 +148,10 @@ export default function LocationSection({ dict, actionsDict }: { dict: LocationD
           </div>
           
           <div className="space-y-4 relative z-10">
-            {/* FIX: Koristi elevated boju za hover mape */}
-            <a href={CONTACT.googleMapsPin} target="_blank" rel="noopener noreferrer" className="block w-full text-center border border-white/20 hover:border-gold bg-transparent hover:bg-[var(--color-surface-elevated)] py-5 transition-all duration-300">
+            <a href={CONTACT.googleMapsPin} target="_blank" rel="noopener noreferrer" className="block w-full text-center border border-white/20 hover:border-gold bg-transparent hover:bg-[#112F1D] py-5 transition-all duration-300">
               <span className="text-sm text-white uppercase tracking-widest font-medium">Google Maps</span>
             </a>
-            <a href={appleMapsLink} target="_blank" rel="noopener noreferrer" className="block w-full text-center border border-white/20 hover:border-gold bg-transparent hover:bg-[var(--color-surface-elevated)] py-5 transition-all duration-300">
+            <a href={appleMapsLink} target="_blank" rel="noopener noreferrer" className="block w-full text-center border border-white/20 hover:border-gold bg-transparent hover:bg-[#112F1D] py-5 transition-all duration-300">
               <span className="text-sm text-white uppercase tracking-widest font-medium">Apple Maps</span>
             </a>
           </div>
