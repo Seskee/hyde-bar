@@ -1,15 +1,12 @@
 'use client'
-import { useEffect, useState, useRef } from 'react'
-import { CalendarDays, MapPin } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { Phone, MapPin } from 'lucide-react'
 import { CONTACT } from '@/lib/constants'
 import type { ActionsDict } from '@/types'
 
 export function MobileActions({ dict }: { dict: ActionsDict }) {
   const [isVisible, setIsVisible] = useState(false)
   const [isMobileScreen, setIsMobileScreen] = useState(false)
-  
-  // OVO JE ONO ŠTO TVOJ KOD NEMA: Čuvar stanja koji sprečava lag na mobitelu
-  const isVisibleRef = useRef(false)
 
   useEffect(() => {
     let cachedDocHeight = 0
@@ -30,15 +27,12 @@ export function MobileActions({ dict }: { dict: ActionsDict }) {
         window.requestAnimationFrame(() => {
           const scrollY = window.scrollY || document.documentElement.scrollTop || 0
           const maxScroll = cachedDocHeight - cachedWinHeight
-          
-          const shouldBeVisible = scrollY > 100 && scrollY < (maxScroll - 200)
-          
-          // OVO JE ONO ŠTO TVOJ KOD NEMA: Provjera prije React rendera
-          if (shouldBeVisible !== isVisibleRef.current) {
-            isVisibleRef.current = shouldBeVisible
-            setIsVisible(shouldBeVisible)
+
+          if (scrollY > 100 && scrollY < maxScroll - 200) {
+            setIsVisible(true)
+          } else {
+            setIsVisible(false)
           }
-          
           ticking = false
         })
         ticking = true
@@ -57,34 +51,40 @@ export function MobileActions({ dict }: { dict: ActionsDict }) {
   if (!isMobileScreen) return null
 
   return (
-    <div 
+    <div
       className="fixed left-0 w-full flex justify-center px-4 z-[9999999]"
-      style={{ 
+      style={{
         bottom: 'max(30px, env(safe-area-inset-bottom))',
         transform: isVisible ? 'translateY(0)' : 'translateY(150px)',
         opacity: isVisible ? 1 : 0,
         pointerEvents: isVisible ? 'auto' : 'none',
-        transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)' 
+        transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
       }}
     >
       <div className="bg-[#0f0f0f]/90 backdrop-blur-xl border border-[#c9a84c]/50 rounded-full flex w-full max-w-[340px] shadow-[0_10px_40px_rgba(0,0,0,0.9)] overflow-hidden">
-        
-        <a 
-          href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} 
+
+        {/*
+         * FIX: Ikona promijenjena iz CalendarDays → Phone.
+         *
+         * Originalno: CalendarDays ikona + tel: href = korisnik misli da otvara
+         * booking kalendar, ali otvori se telefon. Kognitivni mismatch.
+         * Phone ikona je jedina ispravna za tel: link.
+         */}
+        <a
+          href={`tel:${CONTACT.phone.replace(/\s/g, '')}`}
           className="flex-1 flex items-center justify-center gap-2 py-4 text-[#d4af37] border-r border-[#c9a84c]/30 text-[11px] font-bold uppercase tracking-widest active:bg-white/10 transition-colors"
         >
-          <CalendarDays size={16} /> {dict.call}
+          <Phone size={15} /> {dict.call}
         </a>
-        
-        <a 
-          href={CONTACT.googleMapsPin} 
-          target="_blank" 
-          rel="noopener noreferrer" 
+
+        <a
+          href={CONTACT.googleMapsPin}
+          target="_blank"
+          rel="noopener noreferrer"
           className="flex-1 flex items-center justify-center gap-2 py-4 text-white text-[11px] font-bold uppercase tracking-widest active:bg-white/10 transition-colors"
         >
           <MapPin size={16} className="text-[#d4af37]" /> {dict.location}
         </a>
-
       </div>
     </div>
   )

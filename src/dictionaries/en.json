@@ -1,24 +1,89 @@
 {
-  "navbar": { "menu": "Menu", "gallery": "Gallery", "philosophy": "Philosophy", "contact": "Contact" },
-  "hero": { "subtitle": "Ljubuški • Culinary Excellence" },
+  "navbar": {
+    "menu": "Menu",
+    "gallery": "Gallery",
+    "philosophy": "Philosophy",
+    "contact": "Contact"
+  },
+  "hero": {
+    "subtitle": "Ljubuški • Culinary Excellence",
+    "cta": "Reserve a table",
+    "menuCta": "View the menu"
+  },
   "about": {
-    "badge": "Our Philosophy", "title1": "botanical", "title2": "noir",
+    "badge": "Our Philosophy",
+    "title1": "botanical",
+    "title2": "noir",
     "description": "At HYDE, we believe that the absence of light heightens the senses. Our culinary approach focuses on texture, aroma, and the purity of seasonal ingredients.",
     "highlight": "absence of light",
-    "privateSelection": "Private\nSelection"
+    "privateSelection": "Private\nSelection",
+    "menuCta": "Explore the menu"
   },
-  "gallery": { "badge": "Atmosphere", "title": "Vibe", "img1": "The Sanctuary", "img2": "Fine Dine", "img3": "Mixology", "img4": "Nocturnal Details" },
-  "menu": { "badge": "Selection", "title": "Autumn Menu", "quote": "\"Taste is the only sense that requires the soul.\"" },
-  "reviews": { "subtitle": "Google Reviews", "shareBtn": "Share Your Experience", "review1": "A perfect blend of ambiance and gastronomy. Every bite is art, and the cocktails are a story of their own. The best place in Herzegovina.", "review2": "An atmosphere that transports you to another world. Top-level service, and the dry-aged ribeye is absolute perfection.", "review3": "Botanical noir concept in its full glory. From entrance to dessert, an experience that awakens all senses. We are definitely coming back." },
-  "location": { "badge": "The Venue", "title": "Ljubuški", "barTitle": "Bar", "kitchenTitle": "Kitchen", "monFri": "Mon - Fri", "saturday": "Saturday", "sunday": "Sunday", "monSat": "Mon - Sat", "directLine": "Direct Line" },
-  "footer": { "location": "Ljubuški", "inquiry": "Inquiry", "ratingText": "4.6 / 5 on Google", "established": "Botanical Noir • Established 2024", "privacy": "Privacy", "terms": "Terms", "designed": "Designed for Excellence" },
-  "menuPage": { "title": "The Menu", "subtitle": "Ljubuški Selection", "starters": "The Starters", "mains": "Main Collection" },
+  "gallery": {
+    "badge": "Atmosphere",
+    "title": "Vibe",
+    "img1": "The Sanctuary",
+    "img2": "Fine Dine",
+    "img3": "Mixology",
+    "img4": "Nocturnal Details"
+  },
+  "menu": {
+    "badge": "Selection",
+    "title": "Autumn Menu",
+    "quote": "\"Taste is the only sense that requires the soul.\""
+  },
+  "reviews": {
+    "subtitle": "Google Reviews",
+    "shareBtn": "Share Your Experience",
+    "review1": "A perfect blend of ambiance and gastronomy. Every bite is art, and the cocktails are a story of their own. The best place in Herzegovina.",
+    "review2": "An atmosphere that transports you to another world. Top-level service, and the dry-aged ribeye is absolute perfection.",
+    "review3": "Botanical noir concept in its full glory. From entrance to dessert, an experience that awakens all senses. We are definitely coming back."
+  },
+  "location": {
+    "badge": "The Venue",
+    "title": "Ljubuški",
+    "barTitle": "Bar",
+    "kitchenTitle": "Kitchen",
+    "monFri": "Mon - Fri",
+    "saturday": "Saturday",
+    "sunday": "Sunday",
+    "monSat": "Mon - Sat",
+    "directLine": "Direct Line"
+  },
+  "footer": {
+    "location": "Ljubuški",
+    "inquiry": "Inquiry",
+    "ratingText": "4.6 / 5 on Google",
+    "established": "Botanical Noir • Established 2024",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "designed": "Designed for Excellence"
+  },
+  "menuPage": {
+    "title": "The Menu",
+    "subtitle": "Ljubuški Selection",
+    "starters": "The Starters",
+    "mains": "Main Collection"
+  },
   "seo": {
     "title": "HYDE bar & dine | Botanical Noir in Ljubuški",
     "description": "Experience top-tier gastronomy and a botanical noir atmosphere in the heart of Herzegovina. Book your table.",
     "menuDescription": "Discover our menu — dry-aged meats, fresh ingredients, and botanical cocktails in the heart of Ljubuški.",
-    "keywords": ["restaurant Ljubuški", "fine dining Herzegovina", "HYDE bar", "cocktails", "dry aged meat", "botanical noir"]
+    "keywords": [
+      "restaurant Ljubuški",
+      "fine dining Herzegovina",
+      "HYDE bar",
+      "cocktails",
+      "dry aged meat",
+      "botanical noir"
+    ]
   },
   "noScript": "For the full Botanical Noir experience, please enable JavaScript in your browser.",
-  "actions": { "call": "Reserve", "location": "Location", "navigate": "Navigate", "openInApp": "Open in App", "chooseMap": "Choose your map" }
+  "actions": {
+    "call": "Reserve",
+    "location": "Location",
+    "navigate": "Navigate",
+    "openInApp": "Open in App",
+    "chooseMap": "Choose your map"
+  }
 }

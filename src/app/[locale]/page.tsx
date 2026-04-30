@@ -6,7 +6,7 @@ import GallerySection from '@/components/sections/GallerySection'
 import ReviewsSection from '@/components/sections/ReviewsSection'
 import LocationSection from '@/components/sections/LocationSection'
 import Footer from '@/components/layout/Footer'
-import { SITE_URL } from '@/lib/constants'
+import { SITE_URL, CONTACT } from '@/lib/constants'
 import type { Metadata } from 'next'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -41,17 +41,44 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   const { locale } = await params
   const dict = await getDictionary(locale)
 
+  // FIX 1: JSON-LD Structured Data za Restorane (Savršen SEO)
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "HYDE bar & dine",
+    "image": `${SITE_URL}/images/og-image.jpg`,
+    "url": SITE_URL,
+    "telephone": CONTACT.phone,
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Zvonimirova",
+      "addressLocality": "Ljubuški",
+      "postalCode": "88320",
+      "addressCountry": "BA"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.6",
+      "reviewCount": "150"
+    },
+    "servesCuisine": "Fine Dining, Cocktails",
+    "priceRange": "$$$"
+  }
+
   return (
     <main>
+      {/* Skripta koja se ne vidi na ekranu, ali ju Google čita */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      
       <Navbar dict={dict.navbar} />
       <Hero dict={dict.hero} />
       <About dict={dict.about} />
       <GallerySection dict={dict.gallery} />
       <ReviewsSection dict={dict.reviews} />
-      
-      {/* OVDJE SMO DODALI I actionsDict KAKO BI MODAL ZA MAPU MOGAO BITI PREVEDEN */}
       <LocationSection dict={dict.location} actionsDict={dict.actions} />
-      
       <Footer dict={dict.footer} />
     </main>
   )

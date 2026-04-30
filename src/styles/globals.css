@@ -4,9 +4,7 @@
   --color-gold: #c9a84c;
   --color-gold-light: #e0c06a;
   --color-hyde-emerald: #125e36;
-  
-  --color-hyde-bg: #0b2113; 
-  
+  --color-hyde-bg: #0b2113;
   --font-heading: var(--font-cormorant);
   --font-sans: var(--font-jost);
 }
@@ -22,27 +20,33 @@
     overflow-x: hidden;
   }
 
-  /*
-   * FIX SCROLL JANK #3:
-   * Radijalni gradienti su premješteni iz `body background-image` u ::before pseudo-element
-   * s `position: fixed`. Ovo ih stavlja na vlastiti GPU compositor layer koji se
-   * NE repaintuje na svaki scroll frame — body repaint je eliminiran.
-   */
+  /* Gradienti na fixed layeru — ne repaintuju se na scroll */
   body::before {
     content: '';
     position: fixed;
     inset: 0;
     pointer-events: none;
     z-index: 0;
-    background-image: 
+    background-image:
       radial-gradient(circle at 15% 50%, rgba(18, 94, 54, 0.15) 0%, transparent 70%),
       radial-gradient(circle at 85% 100%, rgba(201, 168, 76, 0.05) 0%, transparent 70%);
-    /* Osigurava da preglednik zna da se ovaj sloj neće mijenjati */
     will-change: auto;
   }
 
   @media (pointer: fine) {
     * { cursor: none !important; }
+  }
+
+  /*
+   * GLOBALNI FOCUS-VISIBLE SUSTAV
+   * WCAG 2.4.11 zahtijeva vidljiv fokus na svim interaktivnim elementima.
+   * :focus-visible (ne :focus) — aktivira se samo na keyboard navigaciju,
+   * ne na klikove mišem, pa ne narušava vizualni dizajn.
+   */
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+    border-radius: 1px;
   }
 
   .reveal {
@@ -63,10 +67,21 @@
 
   .text-glint {
     background: linear-gradient(90deg, var(--color-gold) 0%, #fff 50%, var(--color-gold) 100%);
-    background-size: 200% auto; -webkit-background-clip: text; background-clip: text;
-    -webkit-text-fill-color: transparent; animation: glint 6s linear infinite;
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: glint 6s linear infinite;
   }
+
   .mix-blend-screen { mix-blend-mode: screen; }
+
+  /*
+   * cursor-view — koristio se u GallerySection ali nije bio definiran.
+   * Na desktopu cursor:none ionako gazi ovo (CustomCursor preuzima),
+   * ali definicija mora postojati kao fallback i da nema tihi bug.
+   */
+  .cursor-view { cursor: zoom-in; }
 }
 
 @keyframes glint {
@@ -78,14 +93,8 @@
   from { transform: scale(1.0); }
   to { transform: scale(1.12); }
 }
-.animate-slow-zoom { 
+.animate-slow-zoom {
   animation: slow-zoom 20s infinite alternate ease-in-out;
-  /*
-   * FIX SCROLL JANK #3b:
-   * will-change: transform govori pregledniku da unaprijed promoviraj
-   * ovaj element na vlastiti GPU layer. Bez ovoga, preglednik može
-   * odlučiti repaintati ga zajedno s ostatkom stranice.
-   */
   will-change: transform;
 }
 
@@ -93,7 +102,12 @@
   0%, 100% { transform: scale(1); opacity: 0.8; }
   50% { transform: scale(1.04); opacity: 1; }
 }
-.animate-breathe { 
+.animate-breathe {
   animation: luxury-breathe 7s ease-in-out infinite;
   will-change: transform;
+}
+
+@keyframes scroll-line {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(200%); }
 }
