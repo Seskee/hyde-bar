@@ -5,9 +5,9 @@
   --color-gold-light: #e0c06a;
   --color-hyde-emerald: #125e36;
   --color-hyde-bg: #0b2113;
+  --color-surface-elevated: #112F1D; /* Nova boja za premium hover stateove */
   --font-heading: var(--font-cormorant);
   --font-sans: var(--font-jost);
-
 
   --z-base: 10;
   --z-nav: 50;
@@ -27,7 +27,6 @@
     overflow-x: hidden;
   }
 
-  /* Gradienti na fixed layeru — ne repaintuju se na scroll */
   body::before {
     content: '';
     position: fixed;
@@ -44,12 +43,6 @@
     * { cursor: none !important; }
   }
 
-  /*
-   * GLOBALNI FOCUS-VISIBLE SUSTAV
-   * WCAG 2.4.11 zahtijeva vidljiv fokus na svim interaktivnim elementima.
-   * :focus-visible (ne :focus) — aktivira se samo na keyboard navigaciju,
-   * ne na klikove mišem, pa ne narušava vizualni dizajn.
-   */
   :focus-visible {
     outline: 2px solid var(--color-gold);
     outline-offset: 3px;
@@ -82,12 +75,6 @@
   }
 
   .mix-blend-screen { mix-blend-mode: screen; }
-
-  /*
-   * cursor-view — koristio se u GallerySection ali nije bio definiran.
-   * Na desktopu cursor:none ionako gazi ovo (CustomCursor preuzima),
-   * ali definicija mora postojati kao fallback i da nema tihi bug.
-   */
   .cursor-view { cursor: zoom-in; }
 }
 
