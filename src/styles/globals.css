@@ -7,6 +7,13 @@
   --color-hyde-bg: #0b2113;
   --font-heading: var(--font-cormorant);
   --font-sans: var(--font-jost);
+
+
+  --z-base: 10;
+  --z-nav: 50;
+  --z-modal: 100;
+  --z-overlay: 9998;
+  --z-cursor: 9999;
 }
 
 @layer base {

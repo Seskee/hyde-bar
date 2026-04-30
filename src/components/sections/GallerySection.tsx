@@ -39,7 +39,8 @@ export default function GallerySection({ dict }: { dict: GalleryDict }) {
     <section id="gallery" className="py-24 md:py-48 px-6 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <div className="mb-20 reveal active">
-          <span className="text-gold text-[12px] tracking-[0.6em] uppercase block mb-6 opacity-75 font-medium">{dict.badge}</span>
+          {/* FIX: Povećan font na text-xs za bolju čitljivost */}
+          <span className="text-gold text-xs tracking-[0.6em] uppercase block mb-6 opacity-75 font-medium">{dict.badge}</span>
           <h2 className="font-heading text-5xl md:text-8xl text-white italic lowercase leading-none">{dict.title}</h2>
         </div>
 
@@ -65,7 +66,8 @@ export default function GallerySection({ dict }: { dict: GalleryDict }) {
                   className="object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-                <span className="absolute bottom-6 left-6 text-gold text-[10px] tracking-[0.5em] uppercase font-light italic">
+                {/* FIX: Povećan font na text-xs (12px) */}
+                <span className="absolute bottom-6 left-6 text-gold text-xs tracking-[0.5em] uppercase font-light italic">
                   {img.label}
                 </span>
               </div>
@@ -77,6 +79,7 @@ export default function GallerySection({ dict }: { dict: GalleryDict }) {
             {images.map((_, i) => (
               <button
                 key={i}
+                type="button"
                 aria-label={`Prikaži sliku ${i + 1}`}
                 onClick={() => setActiveSlide(i)}
                 className={`rounded-full transition-all duration-300 ${i === activeSlide ? 'w-6 h-1.5 bg-gold' : 'w-1.5 h-1.5 bg-white/30'}`}
@@ -85,17 +88,16 @@ export default function GallerySection({ dict }: { dict: GalleryDict }) {
           </div>
         </div>
 
-        {/* DESKTOP GRID - ostaje isto */}
+        {/* DESKTOP GRID */}
         <div className="hidden md:grid grid-cols-12 gap-10">
           {images.map((img, i) => (
-            <div
+            <button
+              /* FIX: Promijenjeno iz <div> u <button> za čisti WCAG accessibility i keyboard podršku */
               key={i}
-              role="button"
-              tabIndex={0}
+              type="button"
               aria-label={`Otvori sliku ${img.label}`}
-              onKeyDown={(e) => e.key === 'Enter' && setIndex(i)}
               onClick={() => setIndex(i)}
-              className={`${img.span} relative h-137.5 overflow-hidden group reveal cursor-pointer cursor-view`}
+              className={`${img.span} relative h-137.5 overflow-hidden group reveal cursor-pointer text-left w-full`}
               style={{ transitionDelay: `${i * 150}ms` }}
             >
               <Image
@@ -108,10 +110,11 @@ export default function GallerySection({ dict }: { dict: GalleryDict }) {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-700" />
               <div className="absolute bottom-10 left-10 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700">
-                <span className="text-gold text-[10px] tracking-[0.5em] uppercase font-light italic">{img.label}</span>
+                {/* FIX: Povećan font na text-xs (12px) */}
+                <span className="text-gold text-xs tracking-[0.5em] uppercase font-light italic">{img.label}</span>
               </div>
               <div className="absolute inset-0 border border-white/5 group-hover:border-gold/20 transition-colors duration-700 pointer-events-none" />
-            </div>
+            </button>
           ))}
         </div>
       </div>

@@ -35,7 +35,7 @@ export default function Footer({ dict }: { dict: FooterDict }) {
               <div className="flex text-gold/80 group-hover:text-gold transition-colors duration-500">
                 <Star size={12} fill="currentColor" /><Star size={12} fill="currentColor" /><Star size={12} fill="currentColor" /><Star size={12} fill="currentColor" /><StarHalf size={12} fill="currentColor" />
               </div>
-              <span className="text-white/60 text-[10px] uppercase tracking-[0.3em] font-normal group-hover:text-white transition-colors duration-500">{dict.ratingText}</span>
+              <span className="text-white/60 text-xs uppercase tracking-[0.3em] font-normal group-hover:text-white transition-colors duration-500">{dict.ratingText}</span>
             </a>
           </div>
           
@@ -47,11 +47,11 @@ export default function Footer({ dict }: { dict: FooterDict }) {
         </div>
         
         <div className="pt-10 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="text-[10px] text-gold uppercase tracking-[0.6em] opacity-80">{dict.established}</p>
-          <div className="flex gap-8 text-[10px] text-white/60 uppercase tracking-[0.3em]">
+          <p className="text-xs text-gold uppercase tracking-[0.6em] opacity-80">{dict.established}</p>
+          <div className="flex gap-8 text-xs text-white/60 uppercase tracking-[0.3em]">
             <Link href={`/${currentLocale}`} className="hover:text-white transition-colors">{dict.privacy}</Link>
             <Link href={`/${currentLocale}`} className="hover:text-white transition-colors">{dict.terms}</Link>
-            <span className="hidden md:inline font-normal text-white/50 italic tracking-widest">{dict.designed}</span>
+            <span className="hidden md:inline font-normal text-white/60 italic tracking-widest">{dict.designed}</span>
           </div>
         </div>
         

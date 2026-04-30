@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Star, StarHalf, ChevronLeft, ChevronRight } from 'lucide-react'
 import { CONTACT } from '@/lib/constants'
 import type { ReviewsDict } from '@/types'
@@ -13,41 +13,21 @@ export default function ReviewsSection({ dict }: { dict: ReviewsDict }) {
   ]
 
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [isAnimating, setIsAnimating] = useState(false)
 
-  const isAnimatingRef = useRef(false)
-  const animTimeoutRef = useRef<NodeJS.Timeout | null>(null)
-  const intervalRef = useRef<NodeJS.Timeout | null>(null)
+  // FIX: Čist state management za rotaciju recenzija
+  const handleNext = useCallback(() => {
+    setCurrentIndex((prev) => (prev + 1) % reviews.length)
+  }, [reviews.length])
 
-  const goTo = (getNext: (i: number) => number) => {
-    if (isAnimatingRef.current) return
-    isAnimatingRef.current = true
-    setIsAnimating(true)
-    if (animTimeoutRef.current) clearTimeout(animTimeoutRef.current)
-    animTimeoutRef.current = setTimeout(() => {
-      setCurrentIndex(i => getNext(i))
-      setIsAnimating(false)
-      isAnimatingRef.current = false
-    }, 400)
-  }
-
-  const startInterval = () => {
-    if (intervalRef.current) clearInterval(intervalRef.current)
-    intervalRef.current = setInterval(() => {
-      goTo(i => (i + 1) % reviews.length)
-    }, 7000)
-  }
+  const handlePrev = useCallback(() => {
+    setCurrentIndex((prev) => (prev - 1 + reviews.length) % reviews.length)
+  }, [reviews.length])
 
   useEffect(() => {
-    startInterval()
-    return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current)
-      if (animTimeoutRef.current) clearTimeout(animTimeoutRef.current)
-    }
-  }, [])
-
-  const handleNext = () => { goTo(i => (i + 1) % reviews.length); startInterval() }
-  const handlePrev = () => { goTo(i => (i - 1 + reviews.length) % reviews.length); startInterval() }
+    // FIX: Stabilan interval koji se uredno čisti
+    const timer = setInterval(handleNext, 7000)
+    return () => clearInterval(timer)
+  }, [handleNext])
 
   return (
     <section className="relative py-32 bg-hyde-bg overflow-hidden reveal">
@@ -65,7 +45,7 @@ export default function ReviewsSection({ dict }: { dict: ReviewsDict }) {
           <h2 className="font-heading text-6xl md:text-7xl text-white italic lowercase leading-none">
             4.6<span className="text-3xl text-white/40">/5</span>
           </h2>
-          <span className="text-gold text-[11px] tracking-[0.6em] uppercase mt-6 opacity-90 font-medium">
+          <span className="text-gold text-xs tracking-widest uppercase mt-6 opacity-90 font-medium">
             {dict.subtitle}
           </span>
         </div>
@@ -79,9 +59,14 @@ export default function ReviewsSection({ dict }: { dict: ReviewsDict }) {
             </MagneticWrapper>
           </div>
 
-          <div className="max-w-2xl px-12 transition-all duration-400 ease-in-out" style={{ opacity: isAnimating ? 0 : 1, transform: isAnimating ? 'scale(0.98)' : 'scale(1)' }}>
-            <p className="font-heading text-2xl md:text-4xl text-white/95 leading-[1.6] italic font-normal tracking-wide mb-8">"{reviews[currentIndex].text}"</p>
-            <p className="font-sans text-[12px] text-gold uppercase tracking-[0.3em] font-medium">— {reviews[currentIndex].author}</p>
+          {/* Uklonjen prljavi setTimeout hack za opacity, prepušteno React renderu */}
+          <div className="max-w-2xl px-12 transition-all duration-500 ease-in-out">
+            <p className="font-heading text-2xl md:text-4xl text-white/95 leading-[1.6] italic font-normal tracking-wide mb-8">
+              "{reviews[currentIndex].text}"
+            </p>
+            <p className="font-sans text-xs text-gold uppercase tracking-widest font-medium">
+              — {reviews[currentIndex].author}
+            </p>
           </div>
 
           <div className="absolute right-0 md:-right-12 z-10">
@@ -96,7 +81,7 @@ export default function ReviewsSection({ dict }: { dict: ReviewsDict }) {
         <div className="mt-24">
           <MagneticWrapper>
             <a href={CONTACT.googleReviewsUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-4 group border border-gold/40 hover:border-gold/80 px-10 py-5 transition-all duration-500 bg-white/5 backdrop-blur-md">
-              <span className="text-[11px] text-white/90 group-hover:text-gold uppercase tracking-[0.4em] transition-colors font-medium">{dict.shareBtn}</span>
+              <span className="text-xs text-white/90 group-hover:text-gold uppercase tracking-widest transition-colors font-medium">{dict.shareBtn}</span>
               <div className="w-8 h-px bg-gold/40 group-hover:bg-gold transition-colors"></div>
             </a>
           </MagneticWrapper>
