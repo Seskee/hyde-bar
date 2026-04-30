@@ -82,7 +82,7 @@ export default async function MenuPage({ params }: { params: Promise<{ locale: s
               {cat.items.map((item, i) => (
                 <div key={i}>
                   <div className="group cursor-default py-8 text-center md:text-left">
-                    <div className="flex flex-col md:flex-row md:justify-between md:items-baseline mb-3 gap-2">
+                    <div className="flex flex-col md:flex-row md:justify-between md:items-baseline mb-4 gap-2">
                       <h3 className="font-heading text-4xl md:text-5xl text-white group-hover:text-gold transition-colors duration-500 lowercase italic tracking-tight">
                         {item.name}
                       </h3>
@@ -90,7 +90,31 @@ export default async function MenuPage({ params }: { params: Promise<{ locale: s
                         {formatPrice(item.price)}
                       </span>
                     </div>
-                    <p className="text-[#c8bfa8]/60 text-[11px] md:text-[13px] uppercase tracking-[0.3em] font-light leading-relaxed">
+
+                    {/*
+                      BEFORE: text-[#c8bfa8]/60  text-[11px]  uppercase  tracking-[0.3em]  font-light
+                      
+                      Problemi s originalnim:
+                      1. /60 opacity — svega 60% vidljivosti na tamnoj pozadini, na suncu nevidljivo
+                      2. text-[11px] na mobitelu — premalo za outdoor čitanje
+                      3. uppercase + tracking-[0.3em] — razdvojena slova = mozak mora raditi više
+                      4. font-light — najtanji weight, najgori kontrast
+                      
+                      Popravci:
+                      1. Puna opacity s nešto toplijom, čišćom bojom (#d4cbb8 umjesto /60)
+                      2. text-[13px] na mobitelu → čitljivo na suncu bez rušenja estetike
+                      3. Sentence case (normalna slova) umjesto UPPERCASE — lakše se čita brzo
+                      4. font-normal umjesto font-light — stroži, bolji kontrast
+                      5. tracking-[0.08em] — mali, elegantan razmak bez rasipanja slova
+                    */}
+                    <p className="
+                      text-[#d4cbb8] 
+                      text-[13px] md:text-[13px]
+                      tracking-[0.08em]
+                      font-normal
+                      leading-relaxed
+                      text-center md:text-left
+                    ">
                       {item.desc}
                     </p>
                   </div>
