@@ -7,31 +7,29 @@ export function Preloader() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // 1. Googlebot/Lighthouse provjera 
     if (typeof window !== 'undefined' && (navigator.userAgent.includes('Lighthouse') || navigator.userAgent.includes('Googlebot'))) {
       setLoading(false)
       return
     }
 
-    // 2. UX Provjera
     const hasVisited = sessionStorage.getItem('hyde_preloader_played')
     if (hasVisited) {
       setLoading(false)
       return
     }
 
-    document.body.style.overflow = 'hidden'
+    // FIX: Koristimo stabilnu CSS klasu umjesto inline stila
+    document.body.classList.add('no-scroll')
     
-    // Gašenje preloadera nakon 2.4 sekunde
     const timer = setTimeout(() => {
       setLoading(false)
-      document.body.style.overflow = ''
+      document.body.classList.remove('no-scroll')
       sessionStorage.setItem('hyde_preloader_played', 'true')
     }, 2400) 
 
     return () => {
       clearTimeout(timer)
-      document.body.style.overflow = ''
+      document.body.classList.remove('no-scroll')
     }
   }, [])
 
@@ -63,7 +61,6 @@ export function Preloader() {
             />
           </motion.div>
 
-          {/* FIX: Bulletproof width animacija od 0% do 100% */}
           <div className="w-48 h-px bg-white/10 relative overflow-hidden">
             <motion.div 
               initial={{ width: "0%" }}

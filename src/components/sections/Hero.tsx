@@ -26,6 +26,7 @@ export default function Hero({ dict }: { dict: HeroDict }) {
       </div>
 
       <div className="relative z-10 text-center flex flex-col items-center px-6 py-20">
+        <h1 className="sr-only">{dict.subtitle} - HYDE bar & dine</h1>
         
         <div className="relative w-64 h-32 md:w-[550px] md:h-[280px] mb-4 animate-breathe">
           <Image
@@ -46,27 +47,32 @@ export default function Hero({ dict }: { dict: HeroDict }) {
           {dict.subtitle}
         </p>
 
+        {/* 
+            FIX: Maknuti MagneticWrapper omotači.
+            Gumbi ostaju u svom Flex containeru, savršeno poravnati i 100% klikabilni.
+        */}
         <div className="mt-16 md:mt-24 flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8 relative z-20">
           
-          {/* FIX: Primarni gumb - ispunjen (solid) zlatnom bojom za jasnu konverziju */}
+          {/* PRIMARNI GUMB */}
           <a
             href="#location"
-            className="hidden md:inline-flex items-center justify-center gap-4 bg-gold hover:bg-gold-light px-14 py-5 min-w-[260px] transition-all duration-500 shadow-xl"
+            className="hidden md:inline-flex items-center justify-center gap-4 bg-gold hover:bg-gold-light px-14 py-5 min-w-[260px] transition-all duration-500 shadow-xl cursor-pointer"
           >
             <span className="text-sm text-hyde-bg uppercase tracking-widest font-bold transition-colors">
               {dict.cta}
             </span>
           </a>
 
-          {/* FIX: Sekundarni gumb - jasan border bez gubljenja opacityja */}
+          {/* SEKUNDARNI GUMB */}
           <Link
             href={`/${currentLocale}/menu`}
-            className="group flex items-center justify-center gap-3 border border-gold hover:bg-gold/10 bg-[#0b2113]/80 px-12 py-5 min-w-[220px] md:min-w-[260px] transition-all duration-500"
+            className="group flex items-center justify-center gap-3 border border-gold hover:bg-[#112F1D] bg-[#0b2113]/80 px-12 py-5 min-w-[220px] md:min-w-[260px] transition-all duration-500 cursor-pointer"
           >
             <span className="text-sm text-white/90 group-hover:text-gold uppercase tracking-widest font-medium transition-colors">
               {dict.menuCta}
             </span>
           </Link>
+          
         </div>
       </div>
 

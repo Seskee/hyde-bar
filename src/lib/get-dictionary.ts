@@ -1,4 +1,5 @@
 import 'server-only'
+import { cache } from 'react'
 import type { Locale, Dictionary } from '@/types'
 
 const dictionaries: Record<Locale, () => Promise<Dictionary>> = {
@@ -8,7 +9,8 @@ const dictionaries: Record<Locale, () => Promise<Dictionary>> = {
   it: () => import('@/dictionaries/it.json').then((module) => module.default),
 }
 
-export const getDictionary = async (locale: string): Promise<Dictionary> => {
+// FIX: cache() osigurava da se ista komponenta parsira samo jednom u ciklusu
+export const getDictionary = cache(async (locale: string): Promise<Dictionary> => {
   const safeLocale = ['hr', 'en', 'de', 'it'].includes(locale) ? (locale as Locale) : 'hr'
   return dictionaries[safeLocale]()
-}
+})

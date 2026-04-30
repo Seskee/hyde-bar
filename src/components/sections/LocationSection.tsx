@@ -10,10 +10,12 @@ export default function LocationSection({ dict, actionsDict }: { dict: LocationD
   const mapContainerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (showMapMenu) document.body.style.overflow = 'hidden'
-    else document.body.style.overflow = ''
-    return () => { document.body.style.overflow = '' }
+    // FIX: Koristimo stabilnu CSS klasu umjesto inline stila
+    if (showMapMenu) document.body.classList.add('no-scroll')
+    else document.body.classList.remove('no-scroll')
+    return () => document.body.classList.remove('no-scroll')
   }, [showMapMenu])
+
 
   // STRICT LAZY LOAD: Promatramo kada će sekcija ući u ekran
   useEffect(() => {

@@ -5,8 +5,16 @@ export function useIsTouchDevice() {
   const [isTouch, setIsTouch] = useState(false)
 
   useEffect(() => {
-    // Ako je pointer: coarse, radi se o touch uređaju (mobitel/tablet)
-    setIsTouch(window.matchMedia('(pointer: coarse)').matches)
+    const mediaQuery = window.matchMedia('(pointer: coarse)')
+    
+    // Inicijalno postavljanje
+    setIsTouch(mediaQuery.matches)
+
+    // FIX: Slušač za promjenu na tabletima (orijentacija, spajanje miša)
+    const handler = (e: MediaQueryListEvent) => setIsTouch(e.matches)
+    mediaQuery.addEventListener('change', handler)
+    
+    return () => mediaQuery.removeEventListener('change', handler)
   }, [])
 
   return isTouch

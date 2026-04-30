@@ -24,7 +24,7 @@ export default function Footer({ dict }: { dict: FooterDict }) {
           
           <div className="flex flex-col items-center justify-center gap-8 order-first md:order-0">
             <Link href="/" className="relative w-28 h-10 opacity-90 hover:opacity-100 transition-opacity">
-              <Image src="/images/logo.webp" alt="HYDE Logo" fill sizes="(max-width: 768px) 112px, 112px" loading="eager" fetchPriority="high" className="object-contain mix-blend-screen" priority />
+             <Image src="/images/logo.webp" alt="HYDE Logo" fill sizes="(max-width: 768px) 112px, 112px" loading="lazy" className="object-contain mix-blend-screen" />
             </Link>
             <div className="flex items-center gap-8">
               <Link href="https://www.instagram.com/hyde_bar_dine/" target="_blank" rel="noopener noreferrer" aria-label="Posjetite naš Instagram profil" className="text-white/60 hover:text-gold transition-all duration-500 transform hover:scale-110"><Instagram size={24} strokeWidth={1.5} /></Link>

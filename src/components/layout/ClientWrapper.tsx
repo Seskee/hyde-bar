@@ -2,19 +2,18 @@
 import { useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
 import Lenis from 'lenis'
+import { useIsTouchDevice } from '@/hooks/useDeviceType'
 
 export default function ClientWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const lenisRef = useRef<Lenis | null>(null)
+  const isTouch = useIsTouchDevice()
 
   useEffect(() => {
-    // Palimo Lenis SAMO ako korisnik NEMA zaslon osjetljiv na dodir (tj. ako je na PC-u).
-    // Na mobitelima želimo ostaviti savršeni native smooth scroll bez trzanja.
-    const isMobile = window.matchMedia('(pointer: coarse)').matches
-
     let rafId: number
 
-    if (!isMobile) {
+    // 1. LENIS SMOOTH SCROLL (Samo za PC)
+    if (!isTouch && !lenisRef.current) {
       lenisRef.current = new Lenis({ duration: 1.2, smoothWheel: true, wheelMultiplier: 1 })
       
       const raf = (time: number) => { 
@@ -24,6 +23,7 @@ export default function ClientWrapper({ children }: { children: React.ReactNode 
       rafId = requestAnimationFrame(raf)
     }
 
+    // 2. VRAĆEN SKENER ZA STARE .reveal KLASE DA TI STRANICA NE BUDE NEVIDLJIVA
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -38,12 +38,15 @@ export default function ClientWrapper({ children }: { children: React.ReactNode 
     }, 400)
 
     return () => { 
-      if (!isMobile) cancelAnimationFrame(rafId)
-      lenisRef.current?.destroy()
+      if (lenisRef.current) {
+        cancelAnimationFrame(rafId)
+        lenisRef.current.destroy()
+        lenisRef.current = null
+      }
       observer.disconnect()
       clearTimeout(timer) 
     }
-  }, [pathname])
+  }, [pathname, isTouch]) // Vraćen pathname da se animacije ponovno okinu kad promijeniš stranicu
 
   return <>{children}</>
 }
